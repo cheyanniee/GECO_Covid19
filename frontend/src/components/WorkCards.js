@@ -45,7 +45,7 @@ const WorkCards = () => {
       </div>
       <div className="row projects gx-lg-5">
         <Link
-          to="work-single.html"
+          to="/workSingle"
           className="col-sm-6 col-lg-4 text-decoration-none project marketing social business"
         >
           <div className="service-work overflow-hidden card mb-5 mx-5 m-sm-0">
@@ -69,7 +69,7 @@ const WorkCards = () => {
           </div>
         </Link>
         <Link
-          to="work-single.html"
+          to="/workSingle"
           className="col-sm-6 col-lg-4 text-decoration-none project graphic social"
         >
           <div className="service-work overflow-hidden card mx-5 mx-sm-0 mb-5">
@@ -93,7 +93,7 @@ const WorkCards = () => {
           </div>
         </Link>
         <Link
-          to="work-single.html"
+          to="/workSingle"
           className="col-sm-6 col-lg-4 text-decoration-none project marketing graphic business"
         >
           <div className="service-work overflow-hidden card mx-5 mx-sm-0 mb-5">
@@ -117,7 +117,7 @@ const WorkCards = () => {
           </div>
         </Link>
         <Link
-          to="work-single.html"
+          to="/workSingle"
           className="col-sm-6 col-lg-4 text-decoration-none project social business"
         >
           <div className="service-work overflow-hidden card mx-5 mx-sm-0 mb-5">
@@ -141,7 +141,7 @@ const WorkCards = () => {
           </div>
         </Link>
         <Link
-          to="work-single.html"
+          to="/workSingle"
           className="col-sm-6 col-lg-4 text-decoration-none project marketing"
         >
           <div className="service-work overflow-hidden card mx-5 mx-sm-0 mb-5">
@@ -165,7 +165,7 @@ const WorkCards = () => {
           </div>
         </Link>
         <Link
-          to="work-single.html"
+          to="/workSingle"
           className="col-sm-6 col-lg-4 text-decoration-none project marketing graphic"
         >
           <div className="service-work overflow-hidden card mx-5 mx-sm-0 mb-5">
