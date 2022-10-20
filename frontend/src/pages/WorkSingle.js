@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import { Link } from "react-router-dom";
 
 const WorkSingle = () => {
+  const [largeImg, setLargeImg] = useState("./assets/img/work-slide-04.jpg");
   return (
     <>
       <Header />
@@ -48,11 +49,7 @@ const WorkSingle = () => {
         <div className="row justify-content-center pb-4">
           <div className="col-lg-8">
             <div id="templatemo-slide-link-target" className="card mb-3">
-              <img
-                className="img-fluid border rounded"
-                src="./assets/img/work-slide-04.jpg"
-                alt=""
-              />
+              <img className="img-fluid border rounded" src={largeImg} alt="" />
             </div>
             <div className="worksingle-slide-footer row">
               {/*Start Controls*/}
@@ -78,64 +75,59 @@ const WorkSingle = () => {
                   <div className="carousel-item active">
                     <div className="row">
                       <div className="col">
-                        <a
-                          className="templatemo-slide-link"
-                          href="./assets/img/work-slide-06.jpg"
-                        >
-                          <img
-                            className="img-fluid border rounded"
-                            src="./assets/img/work-slide-06-small.jpg"
-                            alt=""
-                          />
-                        </a>
+                        <img
+                          className="img-fluid border rounded"
+                          src="./assets/img/work-slide-06-small.jpg"
+                          alt=""
+                          role="button"
+                          onClick={() =>
+                            setLargeImg("./assets/img/work-slide-06.jpg")
+                          }
+                        />
                       </div>
                       <div className="col">
-                        <a
-                          className="templatemo-slide-link"
-                          href="./assets/img/work-slide-05.jpg"
-                        >
-                          <img
-                            className="img-fluid border rounded"
-                            src="./assets/img/work-slide-05-small.jpg"
-                            alt=""
-                          />
-                        </a>
+                        <img
+                          className="img-fluid border rounded"
+                          src="./assets/img/work-slide-05-small.jpg"
+                          alt=""
+                          role="button"
+                          onClick={() =>
+                            setLargeImg("./assets/img/work-slide-05.jpg")
+                          }
+                        />
                       </div>
                       <div className="col">
-                        <a
-                          className="templatemo-slide-link"
-                          href="./assets/img/work-slide-04.jpg"
-                        >
-                          <img
-                            className="img-fluid border rounded"
-                            src="./assets/img/work-slide-04-small.jpg"
-                            alt=""
-                          />
-                        </a>
+                        <img
+                          className="img-fluid border rounded"
+                          src="./assets/img/work-slide-04-small.jpg"
+                          alt=""
+                          role="button"
+                          onClick={() =>
+                            setLargeImg("./assets/img/work-slide-04.jpg")
+                          }
+                        />
                       </div>
                       <div className="col">
-                        <a
-                          className="templatemo-slide-link"
-                          href="./assets/img/work-slide-03.jpg"
-                        >
-                          <img
-                            className="img-fluid border rounded"
-                            src="./assets/img/work-slide-03-small.jpg"
-                            alt=""
-                          />
-                        </a>
+                        <img
+                          className="img-fluid border rounded"
+                          src="./assets/img/work-slide-03-small.jpg"
+                          alt=""
+                          role="button"
+                          onClick={() =>
+                            setLargeImg("./assets/img/work-slide-03.jpg")
+                          }
+                        />
                       </div>
                       <div className="col">
-                        <a
-                          className="templatemo-slide-link"
-                          href="./assets/img/work-slide-01.jpg"
-                        >
-                          <img
-                            className="img-fluid border rounded"
-                            src="./assets/img/work-slide-01-small.jpg"
-                            alt=""
-                          />
-                        </a>
+                        <img
+                          className="img-fluid border rounded"
+                          src="./assets/img/work-slide-01-small.jpg"
+                          alt=""
+                          role="button"
+                          onClick={() =>
+                            setLargeImg("./assets/img/work-slide-01.jpg")
+                          }
+                        />
                       </div>
                     </div>
                   </div>
@@ -144,64 +136,59 @@ const WorkSingle = () => {
                   <div className="carousel-item">
                     <div className="row">
                       <div className="col">
-                        <a
-                          className="templatemo-slide-link"
-                          href="./assets/img/work-slide-01.jpg"
-                        >
-                          <img
-                            className="img-fluid border rounded"
-                            src="./assets/img/work-slide-01-small.jpg"
-                            alt=""
-                          />
-                        </a>
+                        <img
+                          className="img-fluid border rounded"
+                          src="./assets/img/work-slide-01-small.jpg"
+                          alt=""
+                          role="button"
+                          onClick={() =>
+                            setLargeImg("./assets/img/work-slide-01.jpg")
+                          }
+                        />
                       </div>
                       <div className="col">
-                        <a
-                          className="templatemo-slide-link"
-                          href="./assets/img/work-slide-03.jpg"
-                        >
-                          <img
-                            className="img-fluid border rounded"
-                            src="./assets/img/work-slide-03-small.jpg"
-                            alt=""
-                          />
-                        </a>
+                        <img
+                          className="img-fluid border rounded"
+                          src="./assets/img/work-slide-03-small.jpg"
+                          alt=""
+                          role="button"
+                          onClick={() =>
+                            setLargeImg("./assets/img/work-slide-03.jpg")
+                          }
+                        />
                       </div>
                       <div className="col">
-                        <a
-                          className="templatemo-slide-link"
-                          href="./assets/img/work-slide-02.jpg"
-                        >
-                          <img
-                            className="img-fluid border rounded"
-                            src="./assets/img/work-slide-02-small.jpg"
-                            alt=""
-                          />
-                        </a>
+                        <img
+                          className="img-fluid border rounded"
+                          src="./assets/img/work-slide-02-small.jpg"
+                          alt=""
+                          role="button"
+                          onClick={() =>
+                            setLargeImg("./assets/img/work-slide-02.jpg")
+                          }
+                        />
                       </div>
                       <div className="col">
-                        <a
-                          className="templatemo-slide-link"
-                          href="./assets/img/work-slide-01.jpg"
-                        >
-                          <img
-                            className="img-fluid border rounded"
-                            src="./assets/img/work-slide-01-small.jpg"
-                            alt=""
-                          />
-                        </a>
+                        <img
+                          className="img-fluid border rounded"
+                          src="./assets/img/work-slide-01-small.jpg"
+                          alt=""
+                          role="button"
+                          onClick={() =>
+                            setLargeImg("./assets/img/work-slide-01.jpg")
+                          }
+                        />
                       </div>
                       <div className="col">
-                        <a
-                          className="templatemo-slide-link"
-                          href="./assets/img/work-slide-06.jpg"
-                        >
-                          <img
-                            className="img-fluid border rounded"
-                            src="./assets/img/work-slide-06-small.jpg"
-                            alt=""
-                          />
-                        </a>
+                        <img
+                          className="img-fluid border rounded"
+                          src="./assets/img/work-slide-06-small.jpg"
+                          alt=""
+                          role="button"
+                          onClick={() =>
+                            setLargeImg("./assets/img/work-slide-06.jpg")
+                          }
+                        />
                       </div>
                     </div>
                   </div>
@@ -210,64 +197,59 @@ const WorkSingle = () => {
                   <div className="carousel-item">
                     <div className="row">
                       <div className="col">
-                        <a
-                          className="templatemo-slide-link"
-                          href="./assets/img/work-slide-01.jpg"
-                        >
-                          <img
-                            className="img-fluid border rounded"
-                            src="./assets/img/work-slide-01-small.jpg"
-                            alt=""
-                          />
-                        </a>
+                        <img
+                          className="img-fluid border rounded"
+                          src="./assets/img/work-slide-01-small.jpg"
+                          alt=""
+                          role="button"
+                          onClick={() =>
+                            setLargeImg("./assets/img/work-slide-01.jpg")
+                          }
+                        />
                       </div>
                       <div className="col">
-                        <a
-                          className="templatemo-slide-link"
-                          href="./assets/img/work-slide-03.jpg"
-                        >
-                          <img
-                            className="img-fluid border rounded"
-                            src="./assets/img/work-slide-03-small.jpg"
-                            alt=""
-                          />
-                        </a>
+                        <img
+                          className="img-fluid border rounded"
+                          src="./assets/img/work-slide-03-small.jpg"
+                          alt=""
+                          role="button"
+                          onClick={() =>
+                            setLargeImg("./assets/img/work-slide-03.jpg")
+                          }
+                        />
                       </div>
                       <div className="col">
-                        <a
-                          className="templatemo-slide-link"
-                          href="./assets/img/work-slide-02.jpg"
-                        >
-                          <img
-                            className="img-fluid border rounded"
-                            src="./assets/img/work-slide-02-small.jpg"
-                            alt=""
-                          />
-                        </a>
+                        <img
+                          className="img-fluid border rounded"
+                          src="./assets/img/work-slide-02-small.jpg"
+                          alt=""
+                          role="button"
+                          onClick={() =>
+                            setLargeImg("./assets/img/work-slide-02.jpg")
+                          }
+                        />
                       </div>
                       <div className="col">
-                        <a
-                          className="templatemo-slide-link"
-                          href="./assets/img/work-slide-01.jpg"
-                        >
-                          <img
-                            className="img-fluid border rounded"
-                            src="./assets/img/work-slide-01-small.jpg"
-                            alt=""
-                          />
-                        </a>
+                        <img
+                          className="img-fluid border rounded"
+                          src="./assets/img/work-slide-01-small.jpg"
+                          alt=""
+                          role="button"
+                          onClick={() =>
+                            setLargeImg("./assets/img/work-slide-01.jpg")
+                          }
+                        />
                       </div>
                       <div className="col">
-                        <a
-                          className="templatemo-slide-link"
-                          href="./assets/img/work-slide-06.jpg"
-                        >
-                          <img
-                            className="img-fluid border rounded"
-                            src="./assets/img/work-slide-06-small.jpg"
-                            alt=""
-                          />
-                        </a>
+                        <img
+                          className="img-fluid border rounded"
+                          src="./assets/img/work-slide-06-small.jpg"
+                          alt=""
+                          role="button"
+                          onClick={() =>
+                            setLargeImg("./assets/img/work-slide-06.jpg")
+                          }
+                        />
                       </div>
                     </div>
                   </div>
