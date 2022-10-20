@@ -57,13 +57,13 @@ const WorkSingle = () => {
             <div className="worksingle-slide-footer row">
               {/*Start Controls*/}
               <div className="col-1 align-self-center">
-                <Link
-                  to="#multi-item-example"
+                <a
+                  href="#multi-item-example"
                   role="button"
                   data-bs-slide="prev"
                 >
                   <i className="bx bxs-chevron-left bx-sm text-dark" />
-                </Link>
+                </a>
               </div>
               {/*End Controls*/}
               {/*Start Carousel Wrapper*/}
@@ -78,64 +78,64 @@ const WorkSingle = () => {
                   <div className="carousel-item active">
                     <div className="row">
                       <div className="col">
-                        <Link
+                        <a
                           className="templatemo-slide-link"
-                          to="./assets/img/work-slide-06.jpg"
+                          href="./assets/img/work-slide-06.jpg"
                         >
                           <img
                             className="img-fluid border rounded"
                             src="./assets/img/work-slide-06-small.jpg"
                             alt=""
                           />
-                        </Link>
+                        </a>
                       </div>
                       <div className="col">
-                        <Link
+                        <a
                           className="templatemo-slide-link"
-                          to="./assets/img/work-slide-05.jpg"
+                          href="./assets/img/work-slide-05.jpg"
                         >
                           <img
                             className="img-fluid border rounded"
                             src="./assets/img/work-slide-05-small.jpg"
                             alt=""
                           />
-                        </Link>
+                        </a>
                       </div>
                       <div className="col">
-                        <Link
+                        <a
                           className="templatemo-slide-link"
-                          to="./assets/img/work-slide-04.jpg"
+                          href="./assets/img/work-slide-04.jpg"
                         >
                           <img
                             className="img-fluid border rounded"
                             src="./assets/img/work-slide-04-small.jpg"
                             alt=""
                           />
-                        </Link>
+                        </a>
                       </div>
                       <div className="col">
-                        <Link
+                        <a
                           className="templatemo-slide-link"
-                          to="./assets/img/work-slide-03.jpg"
+                          href="./assets/img/work-slide-03.jpg"
                         >
                           <img
                             className="img-fluid border rounded"
                             src="./assets/img/work-slide-03-small.jpg"
                             alt=""
                           />
-                        </Link>
+                        </a>
                       </div>
                       <div className="col">
-                        <Link
+                        <a
                           className="templatemo-slide-link"
-                          to="./assets/img/work-slide-01.jpg"
+                          href="./assets/img/work-slide-01.jpg"
                         >
                           <img
                             className="img-fluid border rounded"
                             src="./assets/img/work-slide-01-small.jpg"
                             alt=""
                           />
-                        </Link>
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -144,64 +144,64 @@ const WorkSingle = () => {
                   <div className="carousel-item">
                     <div className="row">
                       <div className="col">
-                        <Link
+                        <a
                           className="templatemo-slide-link"
-                          to="./assets/img/work-slide-01.jpg"
+                          href="./assets/img/work-slide-01.jpg"
                         >
                           <img
                             className="img-fluid border rounded"
                             src="./assets/img/work-slide-01-small.jpg"
                             alt=""
                           />
-                        </Link>
+                        </a>
                       </div>
                       <div className="col">
-                        <Link
+                        <a
                           className="templatemo-slide-link"
-                          to="./assets/img/work-slide-03.jpg"
+                          href="./assets/img/work-slide-03.jpg"
                         >
                           <img
                             className="img-fluid border rounded"
                             src="./assets/img/work-slide-03-small.jpg"
                             alt=""
                           />
-                        </Link>
+                        </a>
                       </div>
                       <div className="col">
-                        <Link
+                        <a
                           className="templatemo-slide-link"
-                          to="./assets/img/work-slide-02.jpg"
+                          href="./assets/img/work-slide-02.jpg"
                         >
                           <img
                             className="img-fluid border rounded"
                             src="./assets/img/work-slide-02-small.jpg"
                             alt=""
                           />
-                        </Link>
+                        </a>
                       </div>
                       <div className="col">
-                        <Link
+                        <a
                           className="templatemo-slide-link"
-                          to="./assets/img/work-slide-01.jpg"
+                          href="./assets/img/work-slide-01.jpg"
                         >
                           <img
                             className="img-fluid border rounded"
                             src="./assets/img/work-slide-01-small.jpg"
                             alt=""
                           />
-                        </Link>
+                        </a>
                       </div>
                       <div className="col">
-                        <Link
+                        <a
                           className="templatemo-slide-link"
-                          to="./assets/img/work-slide-06.jpg"
+                          href="./assets/img/work-slide-06.jpg"
                         >
                           <img
                             className="img-fluid border rounded"
                             src="./assets/img/work-slide-06-small.jpg"
                             alt=""
                           />
-                        </Link>
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -210,64 +210,64 @@ const WorkSingle = () => {
                   <div className="carousel-item">
                     <div className="row">
                       <div className="col">
-                        <Link
+                        <a
                           className="templatemo-slide-link"
-                          to="./assets/img/work-slide-01.jpg"
+                          href="./assets/img/work-slide-01.jpg"
                         >
                           <img
                             className="img-fluid border rounded"
                             src="./assets/img/work-slide-01-small.jpg"
                             alt=""
                           />
-                        </Link>
+                        </a>
                       </div>
                       <div className="col">
-                        <Link
+                        <a
                           className="templatemo-slide-link"
-                          to="./assets/img/work-slide-03.jpg"
+                          href="./assets/img/work-slide-03.jpg"
                         >
                           <img
                             className="img-fluid border rounded"
                             src="./assets/img/work-slide-03-small.jpg"
                             alt=""
                           />
-                        </Link>
+                        </a>
                       </div>
                       <div className="col">
-                        <Link
+                        <a
                           className="templatemo-slide-link"
-                          to="./assets/img/work-slide-02.jpg"
+                          href="./assets/img/work-slide-02.jpg"
                         >
                           <img
                             className="img-fluid border rounded"
                             src="./assets/img/work-slide-02-small.jpg"
                             alt=""
                           />
-                        </Link>
+                        </a>
                       </div>
                       <div className="col">
-                        <Link
+                        <a
                           className="templatemo-slide-link"
-                          to="./assets/img/work-slide-01.jpg"
+                          href="./assets/img/work-slide-01.jpg"
                         >
                           <img
                             className="img-fluid border rounded"
                             src="./assets/img/work-slide-01-small.jpg"
                             alt=""
                           />
-                        </Link>
+                        </a>
                       </div>
                       <div className="col">
-                        <Link
+                        <a
                           className="templatemo-slide-link"
-                          to="./assets/img/work-slide-06.jpg"
+                          href="./assets/img/work-slide-06.jpg"
                         >
                           <img
                             className="img-fluid border rounded"
                             src="./assets/img/work-slide-06-small.jpg"
                             alt=""
                           />
-                        </Link>
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -278,13 +278,13 @@ const WorkSingle = () => {
               {/*End Carousel Wrapper*/}
               {/*Start Controls*/}
               <div className="col-1 align-self-center text-end">
-                <Link
-                  to="#multi-item-example"
+                <a
+                  href="#multi-item-example"
                   role="button"
                   data-bs-slide="next"
                 >
                   <i className="bx bxs-chevron-right bx-sm text-dark" />
-                </Link>
+                </a>
               </div>
               {/*End Controls*/}
             </div>

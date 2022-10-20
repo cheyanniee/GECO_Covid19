@@ -69,10 +69,7 @@ const Footer = () => {
             <ul className="list-unstyled text-light light-300">
               <li className="pb-2">
                 <i className="bx-fw bx bxs-chevron-right bx-xs" />
-                <Link
-                  className="text-decoration-none text-light"
-                  to="index.html"
-                >
+                <Link className="text-decoration-none text-light" to="/">
                   Home
                 </Link>
               </li>
@@ -80,7 +77,7 @@ const Footer = () => {
                 <i className="bx-fw bx bxs-chevron-right bx-xs" />
                 <Link
                   className="text-decoration-none text-light py-1"
-                  to="about.html"
+                  to="/about"
                 >
                   About Us
                 </Link>
@@ -89,7 +86,7 @@ const Footer = () => {
                 <i className="bx-fw bx bxs-chevron-right bx-xs" />
                 <Link
                   className="text-decoration-none text-light py-1"
-                  to="work.html"
+                  to="/work"
                 >
                   Work
                 </Link>
@@ -98,7 +95,7 @@ const Footer = () => {
                 <i className="bx-fw bx bxs-chevron-right bx-xs" />
                 <Link
                   className="text-decoration-none text-light py-1"
-                  to="pricing.html"
+                  to="/pricing"
                 >
                   Price
                 </Link>
@@ -107,7 +104,7 @@ const Footer = () => {
                 <i className="bx-fw bx bxs-chevron-right bx-xs" />
                 <Link
                   className="text-decoration-none text-light py-1"
-                  to="contact.html"
+                  to="/contact"
                 >
                   Contact
                 </Link>

@@ -126,24 +126,24 @@ const BannerHero = () => {
               </div>
             </div>
           </div>
-          <Link
+          <a
             className="carousel-control-prev text-decoration-none"
-            to="#carouselExampleIndicators"
+            href="#carouselExampleIndicators"
             role="button"
             data-bs-slide="prev"
           >
             <i className="bx bx-chevron-left"></i>
             <span className="visually-hidden">Previous</span>
-          </Link>
-          <Link
+          </a>
+          <a
             className="carousel-control-next text-decoration-none"
-            to="#carouselExampleIndicators"
+            href="#carouselExampleIndicators"
             role="button"
             data-bs-slide="next"
           >
             <i className="bx bx-chevron-right"></i>
             <span className="visually-hidden">Next</span>
-          </Link>
+          </a>
         </div>
       </div>
     </div>
