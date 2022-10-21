@@ -6,6 +6,7 @@ import Pricing from "./pages/Pricing";
 import Register from "./pages/Register";
 import Work from "./pages/Work";
 import WorkSingle from "./pages/WorkSingle";
+import "./App.css";
 
 function App() {
   return (
