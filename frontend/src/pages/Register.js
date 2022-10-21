@@ -1,8 +1,23 @@
 import React from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import { useFormik } from "formik";
 
 const Register = () => {
+  const { values, handleChange, handleBlur, handleSubmit } = useFormik({
+    initialValues: {
+      first_name: "",
+      last_name: "",
+      email: "",
+      password: "",
+      confirm_password: "",
+      dob: "",
+      mobile: "",
+      address: "",
+      postal_code: "",
+    },
+  });
+  console.log(values);
   return (
     <>
       <Header />
@@ -58,15 +73,17 @@ const Register = () => {
           </div>
           {/* Start Contact Form */}
           <div className="col-lg-8 ">
-            <form className="contact-form row" method="post" action="#">
+            <form className="contact-form row" onSubmit={handleSubmit}>
               <div className="col-lg-4 mb-4">
                 <div className="form-floating">
                   <input
                     type="text"
                     className="form-control form-control-lg light-300"
-                    id="floatingFirstName"
-                    name="inputFirstName"
+                    id="first_name"
                     placeholder="First Name"
+                    value={values.first_name}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
                   />
                   <label htmlFor="floatingFirstName light-300">
                     First Name
@@ -79,9 +96,11 @@ const Register = () => {
                   <input
                     type="text"
                     className="form-control form-control-lg light-300"
-                    id="floatingLastName"
-                    name="inputLastName"
+                    id="last_name"
                     placeholder="Last Name"
+                    value={values.last_name}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
                   />
                   <label htmlFor="floatingLastName light-300">Last Name</label>
                 </div>
@@ -92,9 +111,11 @@ const Register = () => {
                   <input
                     type="text"
                     className="form-control form-control-lg light-300"
-                    id="floatingemail"
-                    name="inputemail"
+                    id="email"
                     placeholder="Email"
+                    value={values.email}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
                   />
                   <label htmlFor="floatingemail light-300">Email</label>
                 </div>
@@ -105,9 +126,11 @@ const Register = () => {
                   <input
                     type="password"
                     className="form-control form-control-lg light-300"
-                    id="floatingPwd"
-                    name="password"
+                    id="password"
                     placeholder="password"
+                    value={values.password}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
                   />
                   <label htmlFor="floatingPwd light-300">Password</label>
                 </div>
@@ -118,9 +141,11 @@ const Register = () => {
                   <input
                     type="password"
                     className="form-control form-control-lg light-300"
-                    id="floatingConfirmPwd"
-                    name="inputConfirmPwd"
+                    id="confirm_password"
                     placeholder="Confirm Password"
+                    value={values.confirm_password}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
                   />
                   <label htmlFor="floatingcompany light-300">
                     Confirm Password
@@ -133,9 +158,11 @@ const Register = () => {
                   <input
                     type="date"
                     className="form-control form-control-lg light-300"
-                    id="floatingdob"
-                    name="inputDob"
+                    id="dob"
                     placeholder="dob"
+                    value={values.dob}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
                   />
                   <label htmlFor="floatingdob light-300">Date of Birth</label>
                 </div>
@@ -144,11 +171,13 @@ const Register = () => {
               <div className="col-lg-6 mb-4">
                 <div className="form-floating">
                   <input
-                    type="text"
+                    type="number"
                     className="form-control form-control-lg light-300"
-                    id="floatingMobile"
-                    name="inputMobile"
+                    id="mobile"
                     placeholder="Mobile Number"
+                    value={values.mobile}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
                   />
                   <label htmlFor="floatingcompany light-300">
                     Mobile Number
@@ -161,9 +190,11 @@ const Register = () => {
                   <input
                     type="text"
                     className="form-control form-control-lg light-300"
-                    id="floatingAddress"
-                    name="inputAddress"
+                    id="address"
                     placeholder="Address"
+                    value={values.address}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
                   />
                   <label htmlFor="floatingAddress light-300">Address</label>
                 </div>
@@ -172,11 +203,13 @@ const Register = () => {
               <div className="col-lg-4 mb-4">
                 <div className="form-floating">
                   <input
-                    type="text"
+                    type="number"
                     className="form-control form-control-lg light-300"
-                    id="floatingPostalCode"
-                    name="inputPostalCode"
+                    id="postal_code"
                     placeholder="Postal Code"
+                    value={values.postal_code}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
                   />
                   <label htmlFor="floatingPostalCode light-300">
                     Postal Code
