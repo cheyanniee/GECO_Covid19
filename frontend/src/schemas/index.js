@@ -44,6 +44,7 @@ export const registerSchema = yup.object().shape({
     .number()
     .positive()
     .integer()
-    .min(100000, "Postal code must be at least 6 digits")
+    .min(100000, "Postal code must be exactly 6 digits")
+    .max(1000000, "Postal code must be at exactly 6 digits")
     .required("Please enter valid postal code"),
 });
