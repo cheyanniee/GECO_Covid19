@@ -1,6 +1,9 @@
 import axios from "axios";
 
 export const BASE_URL = "";
+export const LOGIN_ENDPOINT = "";
+export const REGISTER_ENDPOINT = "";
+
 export const config = ({ token }) => {
   return {
     headers: {

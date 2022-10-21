@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import { useFormik } from "formik";
@@ -12,6 +12,7 @@ const onSubmit = async (values, actions) => {
 };
 
 const Register = () => {
+  const inputRef = useRef();
   const {
     values,
     errors,
@@ -25,7 +26,10 @@ const Register = () => {
     validationSchema: registerSchema,
     onSubmit,
   });
-  console.log(errors);
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
+
   return (
     <>
       <Header />
@@ -92,6 +96,7 @@ const Register = () => {
                         : "form-control form-control-lg light-300"
                     }
                     id="first_name"
+                    ref={inputRef}
                     placeholder="First Name"
                     value={values.first_name}
                     onChange={handleChange}
