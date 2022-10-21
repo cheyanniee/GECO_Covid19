@@ -59,20 +59,35 @@ const Register = () => {
           {/* Start Contact Form */}
           <div className="col-lg-8 ">
             <form className="contact-form row" method="post" action="#">
-              <div className="col-lg-6 mb-4">
+              <div className="col-lg-4 mb-4">
                 <div className="form-floating">
                   <input
                     type="text"
                     className="form-control form-control-lg light-300"
-                    id="floatingname"
-                    name="inputname"
-                    placeholder="Name"
+                    id="floatingFirstName"
+                    name="inputFirstName"
+                    placeholder="First Name"
                   />
-                  <label htmlFor="floatingname light-300">Full Name</label>
+                  <label htmlFor="floatingFirstName light-300">
+                    First Name
+                  </label>
                 </div>
               </div>
-              {/* End Input Name */}
-              <div className="col-lg-6 mb-4">
+              {/* End Input First Name */}
+              <div className="col-lg-4 mb-4">
+                <div className="form-floating">
+                  <input
+                    type="text"
+                    className="form-control form-control-lg light-300"
+                    id="floatingLastName"
+                    name="inputLastName"
+                    placeholder="Last Name"
+                  />
+                  <label htmlFor="floatingLastName light-300">Last Name</label>
+                </div>
+              </div>
+              {/* End Input Last_name */}
+              <div className="col-lg-4 mb-4">
                 <div className="form-floating">
                   <input
                     type="text"
@@ -86,12 +101,40 @@ const Register = () => {
               </div>
               {/* End Input Email */}
               <div className="col-lg-6 mb-4">
-                <div className="form-floating date" data-target-input="nearest">
+                <div className="form-floating">
                   <input
-                    type="text"
-                    className="form-control form-control-lg light-300 datetimepicker-input"
+                    type="password"
+                    className="form-control form-control-lg light-300"
+                    id="floatingPwd"
+                    name="password"
+                    placeholder="password"
+                  />
+                  <label htmlFor="floatingPwd light-300">Password</label>
+                </div>
+              </div>
+              {/* End Input password */}
+              <div className="col-lg-6 mb-4">
+                <div className="form-floating">
+                  <input
+                    type="password"
+                    className="form-control form-control-lg light-300"
+                    id="floatingConfirmPwd"
+                    name="inputConfirmPwd"
+                    placeholder="Confirm Password"
+                  />
+                  <label htmlFor="floatingcompany light-300">
+                    Confirm Password
+                  </label>
+                </div>
+              </div>
+              {/* End Input Confirm password */}
+              <div className="col-lg-6 mb-4">
+                <div className="form-floating">
+                  <input
+                    type="date"
+                    className="form-control form-control-lg light-300"
                     id="floatingdob"
-                    name="input"
+                    name="inputDob"
                     placeholder="dob"
                   />
                   <label htmlFor="floatingdob light-300">Date of Birth</label>
@@ -103,42 +146,44 @@ const Register = () => {
                   <input
                     type="text"
                     className="form-control form-control-lg light-300"
-                    id="floatingcompany"
-                    name="inputcompany"
-                    placeholder="Company Name"
+                    id="floatingMobile"
+                    name="inputMobile"
+                    placeholder="Mobile Number"
                   />
                   <label htmlFor="floatingcompany light-300">
-                    Company Name
+                    Mobile Number
                   </label>
                 </div>
               </div>
-              {/* End Input Company Name */}
-              <div className="col-12">
+              {/* End Input Mobile */}
+              <div className="col-8">
                 <div className="form-floating mb-4">
                   <input
                     type="text"
                     className="form-control form-control-lg light-300"
-                    id="floatingsubject"
-                    name="inputsubject"
-                    placeholder="Subject"
+                    id="floatingAddress"
+                    name="inputAddress"
+                    placeholder="Address"
                   />
-                  <label htmlFor="floatingsubject light-300">Subject</label>
+                  <label htmlFor="floatingAddress light-300">Address</label>
                 </div>
               </div>
-              {/* End Input Subject */}
-              <div className="col-12">
-                <div className="form-floating mb-3">
-                  <textarea
-                    className="form-control light-300"
-                    rows={8}
-                    placeholder="Message"
-                    id="floatingtextarea"
-                    defaultValue={""}
+              {/* End Input Address */}
+              <div className="col-lg-4 mb-4">
+                <div className="form-floating">
+                  <input
+                    type="text"
+                    className="form-control form-control-lg light-300"
+                    id="floatingPostalCode"
+                    name="inputPostalCode"
+                    placeholder="Postal Code"
                   />
-                  <label htmlFor="floatingtextarea light-300">Message</label>
+                  <label htmlFor="floatingPostalCode light-300">
+                    Postal Code
+                  </label>
                 </div>
               </div>
-              {/* End Textarea Message */}
+              {/* End Input Postal code */}
               <div className="col-md-12 col-12 m-auto text-end">
                 <button
                   type="submit"
