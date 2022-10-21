@@ -3,6 +3,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Home from "./pages/Home";
 import Pricing from "./pages/Pricing";
+import Register from "./pages/Register";
 import Work from "./pages/Work";
 import WorkSingle from "./pages/WorkSingle";
 
@@ -17,6 +18,7 @@ function App() {
           <Route path="/worksingle" element={<WorkSingle />}></Route>
           <Route path="/pricing" element={<Pricing />}></Route>
           <Route path="/contact" element={<Contact />}></Route>
+          <Route path="/register" element={<Register />}></Route>
         </Routes>
       </BrowserRouter>
     </>
