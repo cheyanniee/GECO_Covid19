@@ -36,11 +36,14 @@ export const registerSchema = yup.object().shape({
     .number()
     .positive()
     .integer()
+    .min(80000000, "Mobile number must be start with 8 or 9")
+    .max(100000000, "Mobile number must be start with 8 or 9")
     .required("Please enter valid mobile number"),
   address: yup.string().required("Required"),
   postal_code: yup
     .number()
     .positive()
     .integer()
+    .min(100000, "Postal code must be at least 6 digits")
     .required("Please enter valid postal code"),
 });
