@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const ViewWork = () => {
+const Clinics = () => {
   return (
     <section className="bg-secondary">
       <div className="container py-5">
@@ -29,4 +29,4 @@ const ViewWork = () => {
   );
 };
 
-export default ViewWork;
+export default Clinics;

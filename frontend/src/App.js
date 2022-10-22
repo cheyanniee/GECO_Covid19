@@ -12,6 +12,7 @@ import UserDetails from "./pages/UserDetails";
 import Unauthorized from "./components/Unauthorized";
 import Layout from "./components/Layout";
 import Missing from "./components/Missing";
+import ClinicsPage from "./pages/ClinicsPage";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
             <Route path="/register" element={<Register />}></Route>
             <Route path="/login" element={<Login />}></Route>
             <Route path="/userDetails" element={<UserDetails />}></Route>
+            <Route path="/clinics" element={<ClinicsPage />}></Route>
             <Route path="/unauthorized" element={<Unauthorized />}></Route>
 
             {/* protected routes */}
