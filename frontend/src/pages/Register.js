@@ -1,17 +1,26 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import { useFormik } from "formik";
 import { INITIAL_FORM_VALUES, registerSchema } from "../schemas";
-
-const onSubmit = async (values, actions) => {
-  console.log(values);
-  console.log(actions);
-
-  actions.resetForm();
-};
+import axios, { REGISTER_ENDPOINT } from "../api/axios";
 
 const Register = () => {
+  const [errMsg, setErrMsg] = useState("");
+  const onSubmit = (values, actions) => {
+    console.log(values);
+    postToDB(values);
+    actions.resetForm();
+  };
+
+  const postToDB = async (params) => {
+    console.log("Params before writing:", params);
+    try {
+      const response = await axios.post(REGISTER_ENDPOINT, params);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const inputRef = useRef();
   const {
     values,
@@ -91,20 +100,20 @@ const Register = () => {
                   <input
                     type="text"
                     className={
-                      errors.first_name && touched.first_name
+                      errors.firstName && touched.firstName
                         ? "form-control form-control-lg-error light-300-error"
                         : "form-control form-control-lg light-300"
                     }
-                    id="first_name"
+                    id="firstName"
                     ref={inputRef}
                     placeholder="First Name"
-                    value={values.first_name}
+                    value={values.firstName}
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
-                  <label htmlFor="first_name light-300">First Name</label>
-                  {errors.first_name && touched.first_name && (
-                    <em className="text-error">{errors.first_name}</em>
+                  <label htmlFor="firstName light-300">First Name</label>
+                  {errors.firstName && touched.firstName && (
+                    <em className="text-error">{errors.firstName}</em>
                   )}
                 </div>
               </div>
@@ -114,45 +123,45 @@ const Register = () => {
                   <input
                     type="text"
                     className={
-                      errors.last_name && touched.last_name
+                      errors.lastName && touched.lastName
                         ? "form-control form-control-lg-error light-300-error"
                         : "form-control form-control-lg light-300"
                     }
-                    id="last_name"
+                    id="lastName"
                     placeholder="Last Name"
-                    value={values.last_name}
+                    value={values.lastName}
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
                   <label htmlFor="last-name light-300">Last Name</label>
-                  {errors.last_name && touched.last_name && (
-                    <em className="text-error">{errors.last_name}</em>
+                  {errors.lastName && touched.lastName && (
+                    <em className="text-error">{errors.lastName}</em>
                   )}
                 </div>
               </div>
-              {/* End Input Last_name */}
+              {/* End Input lastName */}
               <div className="col-lg-4 mb-4">
                 <div className="form-floating">
                   <input
                     type="text"
                     className={
-                      errors.official_id && touched.official_id
+                      errors.officialId && touched.officialId
                         ? "form-control form-control-lg-error light-300-error"
                         : "form-control form-control-lg light-300"
                     }
-                    id="official_id"
+                    id="officialId"
                     placeholder="NRIC/FIN/Passport"
-                    value={values.official_id}
+                    value={values.officialId}
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
                   <label htmlFor="last-name light-300">NRIC/FIN/Passport</label>
-                  {errors.official_id && touched.official_id && (
-                    <em className="text-error">{errors.official_id}</em>
+                  {errors.officialId && touched.officialId && (
+                    <em className="text-error">{errors.officialId}</em>
                   )}
                 </div>
               </div>
-              {/* End Input official_id */}
+              {/* End Input officialId */}
               <div className="col-lg-4 mb-4">
                 <div className="form-floating">
                   <input
@@ -248,23 +257,23 @@ const Register = () => {
                   <input
                     type="number"
                     className={
-                      errors.mobile && touched.mobile
+                      errors.phone && touched.phone
                         ? "form-control form-control-lg-error light-300-error"
                         : "form-control form-control-lg light-300"
                     }
-                    id="mobile"
+                    id="phone"
                     placeholder="Mobile Number"
-                    value={values.mobile}
+                    value={values.phone}
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
-                  <label htmlFor="mobile light-300">Mobile Number</label>
-                  {errors.mobile && touched.mobile && (
-                    <em className="text-error">{errors.mobile}</em>
+                  <label htmlFor="phone light-300">Mobile Number</label>
+                  {errors.phone && touched.phone && (
+                    <em className="text-error">{errors.phone}</em>
                   )}
                 </div>
               </div>
-              {/* End Input Mobile */}
+              {/* End Input phone */}
               <div className="col-8">
                 <div className="form-floating mb-4">
                   <input
@@ -292,19 +301,19 @@ const Register = () => {
                   <input
                     type="number"
                     className={
-                      errors.postal_code && touched.postal_code
+                      errors.postcode && touched.postcode
                         ? "form-control form-control-lg-error light-300-error"
                         : "form-control form-control-lg light-300"
                     }
-                    id="postal_code"
+                    id="postcode"
                     placeholder="Postal Code"
-                    value={values.postal_code}
+                    value={values.postcode}
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
-                  <label htmlFor="postal_code light-300">Postal Code</label>
-                  {errors.postal_code && touched.postal_code && (
-                    <em className="text-error">{errors.postal_code}</em>
+                  <label htmlFor="postcode light-300">Postal Code</label>
+                  {errors.postcode && touched.postcode && (
+                    <em className="text-error">{errors.postcode}</em>
                   )}
                 </div>
               </div>

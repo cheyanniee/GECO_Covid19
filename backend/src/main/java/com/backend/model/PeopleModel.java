@@ -1,25 +1,27 @@
 package com.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "people")
+@Builder
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class PeopleModel {
 
+    public enum Role {
+        user,doctor,admin;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
+    Long id;
 
 //    @Column(name = "last_name")
     String lastName;
@@ -31,7 +33,15 @@ public class PeopleModel {
     String password;
     String address;
     String postcode;
+    String phone;
+    String dob;
+    String officialId;
+
+    String token;
+    @Enumerated(EnumType.STRING)
+    Role role;
 
     @Column(name = "last_login")
-    LocalDateTime lastLogin;
+    @Temporal(TemporalType.TIMESTAMP)
+    Date lastLogin;
 }

@@ -4,22 +4,22 @@ const passwordRules = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/;
 // min 5 characters, 1 upper case letter, 1 lower case letter and 1 number
 
 export const INITIAL_FORM_VALUES = {
-  first_name: "",
-  last_name: "",
-  official_id: "",
+  firstName: "",
+  lastName: "",
+  officialId: "",
   email: "",
   password: "",
   confirm_password: "",
   dob: "",
-  mobile: "",
+  phone: "",
   address: "",
-  postal_code: "",
+  postcode: "",
 };
 
 export const registerSchema = yup.object().shape({
-  first_name: yup.string().required("Required"),
-  last_name: yup.string().required("Required"),
-  official_id: yup.string().required("Required"),
+  firstName: yup.string().required("Required"),
+  lastName: yup.string().required("Required"),
+  officialId: yup.string().required("Required"),
   email: yup.string().email("Please enter a valid email").required("Required"),
   password: yup
     .string()
@@ -34,15 +34,15 @@ export const registerSchema = yup.object().shape({
     .date("Please enter valid date")
     .typeError("Please enter valid date")
     .required("Required"),
-  mobile: yup
+  phone: yup
     .number()
     .positive()
     .integer()
     .min(80000000, "Mobile number must be start with 8 or 9")
     .max(100000000, "Mobile number must be start with 8 or 9")
-    .required("Please enter valid mobile number"),
+    .required("Please enter valid phone number"),
   address: yup.string().required("Required"),
-  postal_code: yup
+  postcode: yup
     .number()
     .positive()
     .integer()
@@ -66,13 +66,13 @@ export const userDetailsSchema = yup.object().shape({
     else return yup.string().notRequired();
   }),
   dob: yup.date("Please enter valid date").typeError("Please enter valid date"),
-  mobile: yup
+  phone: yup
     .number()
     .positive()
     .integer()
     .min(80000000, "Mobile number must be start with 8 or 9")
     .max(100000000, "Mobile number must be start with 8 or 9"),
-  postal_code: yup
+  postcode: yup
     .number()
     .positive()
     .integer()

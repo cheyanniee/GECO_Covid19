@@ -14,6 +14,7 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from.pathname || "/";
+  const registerSuccessMsg = location.state?.message;
 
   const userRef = useRef();
   const pwdRef = useRef();
@@ -69,9 +70,10 @@ const Login = () => {
       <section className="container py-5">
         <div className="row justify-content-center">
           <div className="col-lg-4 border px-3 rounded-3">
-            <em ref={errRef} className={errMsg ? "text-error" : ""}>
+            <em ref={errRef} className="text-error">
               {errMsg}
             </em>
+            <em className="text-success">{registerSuccessMsg}</em>
             <h1 className="col-12 col-xl-8 h2 text-left text-primary pt-3 mb-3">
               Sign In
             </h1>
