@@ -4,9 +4,11 @@ import Header from "../components/Header";
 import { useFormik } from "formik";
 import { INITIAL_FORM_VALUES, registerSchema } from "../schemas";
 import axios, { REGISTER_ENDPOINT } from "../api/axios";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [errMsg, setErrMsg] = useState("");
+  const navigate = useNavigate();
   const onSubmit = (values, actions) => {
     console.log(values);
     postToDB(values);
@@ -17,8 +19,13 @@ const Register = () => {
     console.log("Params before writing:", params);
     try {
       const response = await axios.post(REGISTER_ENDPOINT, params);
+      console.log(response.data);
+      navigate("/login", {
+        state: { message: "Register successful! Please Login to continue" },
+      });
     } catch (error) {
       console.log(error);
+      setErrMsg(error.data);
     }
   };
   const inputRef = useRef();
@@ -37,6 +44,7 @@ const Register = () => {
   });
   useEffect(() => {
     inputRef.current.focus();
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, []);
 
   return (
@@ -319,6 +327,7 @@ const Register = () => {
               </div>
               {/* End Input Postal code */}
               <div className="col-md-12 col-12 m-auto text-end">
+                <em className="text-error">{errMsg}</em>
                 <button
                   disabled={isSubmitting}
                   type="submit"
