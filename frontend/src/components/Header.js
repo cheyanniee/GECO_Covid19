@@ -50,9 +50,9 @@ const Header = () => {
               <li className="nav-item">
                 <Link
                   className="nav-link btn-outline-primary rounded-pill px-3"
-                  to="/work"
+                  to="/clinics"
                 >
-                  Work
+                  Clinics
                 </Link>
               </li>
               <li className="nav-item">
@@ -73,14 +73,21 @@ const Header = () => {
               </li>
             </ul>
           </div>
+          <div className="mx-1 mb-2">
+            <Link to="/login">Login</Link>
+          </div>
+          <div className="mx-1 mb-2">|</div>
+          <div className="mx-1 mb-2">
+            <Link to="/register">Register</Link>
+          </div>
           <div className="navbar align-self-center d-flex">
-            <Link className="nav-link" to="">
+            {/* <Link className="nav-link" to="">
               <i className="bx bx-bell bx-sm bx-tada-hover text-primary"></i>
             </Link>
             <Link className="nav-link" to="">
               <i className="bx bx-cog bx-sm text-primary"></i>
-            </Link>
-            <Link className="nav-link" to="">
+            </Link> */}
+            <Link className="nav-link" to="/userDetails">
               <i className="bx bx-user-circle bx-sm text-primary"></i>
             </Link>
           </div>

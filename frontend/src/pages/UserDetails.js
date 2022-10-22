@@ -1,18 +1,36 @@
-import React, { useRef, useEffect } from "react";
+import React from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import { useFormik } from "formik";
-import { INITIAL_FORM_VALUES, registerSchema } from "../schemas";
+import { INITIAL_FORM_VALUES, userDetailsSchema } from "../schemas";
+import useAuth from "../hooks/useAuth";
+import axios, { USERDETAILS_UPDATE_ENDPOINT } from "../api/axios";
 
-const onSubmit = async (values, actions) => {
-  console.log(values);
-  console.log(actions);
+const UserDetails = () => {
+  const onSubmit = async (values, actions) => {
+    const updatedFieldKeys = Object.keys(values).filter(
+      (key) => values[key] !== ""
+    );
+    if (updatedFieldKeys.length === 0) return;
 
-  actions.resetForm();
-};
-
-const Register = () => {
-  const inputRef = useRef();
+    console.log(updatedFieldKeys);
+    console.log(values);
+    const params = {
+      first_name: values?.first_name,
+      last_name: values?.last_name,
+      official_id: values?.official_id,
+      password: values?.password,
+      email: values?.email,
+      dob: values?.dob,
+      mobile: values?.mobile,
+      address: values?.address,
+      postcode: values?.postcode,
+    };
+    console.log("Params: ", params);
+    writeToDB(params);
+    actions.resetForm();
+  };
+  const { auth } = useAuth;
   const {
     values,
     errors,
@@ -23,20 +41,23 @@ const Register = () => {
     handleSubmit,
   } = useFormik({
     initialValues: INITIAL_FORM_VALUES,
-    validationSchema: registerSchema,
+    validationSchema: userDetailsSchema,
     onSubmit,
   });
-  useEffect(() => {
-    inputRef.current.focus();
-  }, []);
-
+  const writeToDB = (params) => {
+    try {
+      axios.post(USERDETAILS_UPDATE_ENDPOINT, params);
+    } catch (error) {
+      console.log(error);
+    }
+    return;
+  };
   return (
     <>
       <Header />
-      {/* Start Register Form */}
       <section className="container py-5">
         <h1 className="col-12 col-xl-8 h2 text-left text-primary pt-3">
-          Registration Form
+          Your Profile Page
         </h1>
         <h2 className="col-12 col-xl-8 h4 text-left regular-400">
           For General Public
@@ -87,7 +108,8 @@ const Register = () => {
           <div className="col-lg-8 ">
             <form className="contact-form row" onSubmit={handleSubmit}>
               <div className="col-lg-4 mb-4">
-                <div className="form-floating">
+                <div className="">
+                  <label htmlFor="first_name light-300">First Name</label>
                   <input
                     type="text"
                     className={
@@ -96,13 +118,12 @@ const Register = () => {
                         : "form-control form-control-lg light-300"
                     }
                     id="first_name"
-                    ref={inputRef}
-                    placeholder="First Name"
+                    placeholder={auth?.first_name}
                     value={values.first_name}
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
-                  <label htmlFor="first_name light-300">First Name</label>
+
                   {errors.first_name && touched.first_name && (
                     <em className="text-error">{errors.first_name}</em>
                   )}
@@ -110,7 +131,8 @@ const Register = () => {
               </div>
               {/* End Input First Name */}
               <div className="col-lg-4 mb-4">
-                <div className="form-floating">
+                <div className="">
+                  <label htmlFor="last-name light-300">Last Name</label>
                   <input
                     type="text"
                     className={
@@ -119,12 +141,12 @@ const Register = () => {
                         : "form-control form-control-lg light-300"
                     }
                     id="last_name"
-                    placeholder="Last Name"
+                    placeholder={auth?.last_name}
                     value={values.last_name}
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
-                  <label htmlFor="last-name light-300">Last Name</label>
+
                   {errors.last_name && touched.last_name && (
                     <em className="text-error">{errors.last_name}</em>
                   )}
@@ -132,7 +154,8 @@ const Register = () => {
               </div>
               {/* End Input Last_name */}
               <div className="col-lg-4 mb-4">
-                <div className="form-floating">
+                <div className="">
+                  <label htmlFor="last-name light-300">NRIC/FIN/Passport</label>
                   <input
                     type="text"
                     className={
@@ -141,12 +164,11 @@ const Register = () => {
                         : "form-control form-control-lg light-300"
                     }
                     id="official_id"
-                    placeholder="NRIC/FIN/Passport"
+                    placeholder={auth?.official_id}
                     value={values.official_id}
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
-                  <label htmlFor="last-name light-300">NRIC/FIN/Passport</label>
                   {errors.official_id && touched.official_id && (
                     <em className="text-error">{errors.official_id}</em>
                   )}
@@ -154,7 +176,8 @@ const Register = () => {
               </div>
               {/* End Input official_id */}
               <div className="col-lg-4 mb-4">
-                <div className="form-floating">
+                <div className="">
+                  <label htmlFor="password light-300">Password</label>
                   <input
                     type="password"
                     className={
@@ -168,7 +191,6 @@ const Register = () => {
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
-                  <label htmlFor="password light-300">Password</label>
                   {errors.password && touched.password && (
                     <em className="text-error">{errors.password}</em>
                   )}
@@ -176,7 +198,10 @@ const Register = () => {
               </div>
               {/* End Input password */}
               <div className="col-lg-4 mb-4">
-                <div className="form-floating">
+                <div className="">
+                  <label htmlFor="confirm_password light-300">
+                    Confirm Password
+                  </label>
                   <input
                     type="password"
                     className={
@@ -190,9 +215,6 @@ const Register = () => {
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
-                  <label htmlFor="confirm_password light-300">
-                    Confirm Password
-                  </label>
                   {errors.confirm_password && touched.confirm_password && (
                     <em className="text-error">{errors.confirm_password}</em>
                   )}
@@ -200,7 +222,8 @@ const Register = () => {
               </div>
               {/* End Input Confirm password */}
               <div className="col-lg-4 mb-4">
-                <div className="form-floating">
+                <div className="">
+                  <label htmlFor="email light-300">Email</label>
                   <input
                     type="text"
                     className={
@@ -209,12 +232,11 @@ const Register = () => {
                         : "form-control form-control-lg light-300"
                     }
                     id="email"
-                    placeholder="Email"
+                    placeholder={auth?.email}
                     value={values.email}
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
-                  <label htmlFor="email light-300">Email</label>
                   {errors.email && touched.email && (
                     <em className="text-error">{errors.email}</em>
                   )}
@@ -222,7 +244,8 @@ const Register = () => {
               </div>
               {/* End Input Email */}
               <div className="col-lg-6 mb-4">
-                <div className="form-floating">
+                <div className="">
+                  <label htmlFor="dob light-300">Date of Birth</label>
                   <input
                     type="date"
                     className={
@@ -231,12 +254,11 @@ const Register = () => {
                         : "form-control form-control-lg light-300"
                     }
                     id="dob"
-                    placeholder="dob"
+                    placeholder={auth?.dob}
                     value={values.dob}
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
-                  <label htmlFor="dob light-300">Date of Birth</label>
                   {errors.dob && touched.dob && (
                     <em className="text-error">{errors.dob}</em>
                   )}
@@ -244,7 +266,8 @@ const Register = () => {
               </div>
               {/* End Input Date of Birth */}
               <div className="col-lg-6 mb-4">
-                <div className="form-floating">
+                <div className="">
+                  <label htmlFor="mobile light-300">Mobile Number</label>
                   <input
                     type="number"
                     className={
@@ -253,12 +276,11 @@ const Register = () => {
                         : "form-control form-control-lg light-300"
                     }
                     id="mobile"
-                    placeholder="Mobile Number"
+                    placeholder={auth?.mobile}
                     value={values.mobile}
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
-                  <label htmlFor="mobile light-300">Mobile Number</label>
                   {errors.mobile && touched.mobile && (
                     <em className="text-error">{errors.mobile}</em>
                   )}
@@ -266,7 +288,8 @@ const Register = () => {
               </div>
               {/* End Input Mobile */}
               <div className="col-8">
-                <div className="form-floating mb-4">
+                <div className="">
+                  <label htmlFor="address light-300">Address</label>
                   <input
                     type="text"
                     className={
@@ -275,12 +298,11 @@ const Register = () => {
                         : "form-control form-control-lg light-300"
                     }
                     id="address"
-                    placeholder="Address"
+                    placeholder={auth?.address}
                     value={values.address}
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
-                  <label htmlFor="address light-300">Address</label>
                   {errors.address && touched.address && (
                     <em className="text-error">{errors.address}</em>
                   )}
@@ -288,23 +310,23 @@ const Register = () => {
               </div>
               {/* End Input Address */}
               <div className="col-lg-4 mb-4">
-                <div className="form-floating">
+                <div className="">
+                  <label htmlFor="postcode light-300">Postal Code</label>
                   <input
                     type="number"
                     className={
-                      errors.postal_code && touched.postal_code
+                      errors.postcode && touched.postcode
                         ? "form-control form-control-lg-error light-300-error"
                         : "form-control form-control-lg light-300"
                     }
-                    id="postal_code"
-                    placeholder="Postal Code"
-                    value={values.postal_code}
+                    id="postcode"
+                    placeholder={auth?.postcode}
+                    value={values.postcode}
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
-                  <label htmlFor="postal_code light-300">Postal Code</label>
-                  {errors.postal_code && touched.postal_code && (
-                    <em className="text-error">{errors.postal_code}</em>
+                  {errors.postcode && touched.postcode && (
+                    <em className="text-error">{errors.postcode}</em>
                   )}
                 </div>
               </div>
@@ -315,7 +337,7 @@ const Register = () => {
                   type="submit"
                   className="btn btn-secondary rounded-pill px-md-5 px-4 py-2 radius-0 text-light light-300"
                 >
-                  Register!
+                  Update Details!
                 </button>
               </div>
             </form>
@@ -323,10 +345,9 @@ const Register = () => {
           {/* End Contact Form */}
         </div>
       </section>
-      {/* End Register Form */}
       <Footer />
     </>
   );
 };
 
-export default Register;
+export default UserDetails;
