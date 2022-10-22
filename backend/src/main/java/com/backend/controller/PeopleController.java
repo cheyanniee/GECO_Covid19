@@ -29,4 +29,13 @@ public class PeopleController {
         }
     }
 
+    @PostMapping("login")
+    public ResponseEntity<?> login(@RequestBody PeopleRequest peopleRequest) {
+        try {
+            return ResponseEntity.ok(peopleService.loginValidate(peopleRequest.getEmail(), peopleRequest.getPassword()));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new GeneralResponse(e.getMessage()));
+        }
+    }
+
 }
