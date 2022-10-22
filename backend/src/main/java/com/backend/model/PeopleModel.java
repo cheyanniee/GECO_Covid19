@@ -1,0 +1,47 @@
+package com.backend.model;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
+
+import javax.persistence.*;
+import java.util.Date;
+
+@Entity
+@Table(name = "people")
+@Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class PeopleModel {
+
+    public enum Role {
+        user,doctor,admin;
+    }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
+
+//    @Column(name = "last_name")
+    String lastName;
+
+//    @Column(name = "first_name")
+    String firstName;
+    String email;
+    @JsonIgnore
+    String password;
+    String address;
+    String postcode;
+    String phone;
+    String dob;
+    String officialId;
+
+    String token;
+    @Enumerated(EnumType.STRING)
+    Role role;
+
+    @Column(name = "last_login")
+    @Temporal(TemporalType.TIMESTAMP)
+    Date lastLogin;
+}
