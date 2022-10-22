@@ -4,15 +4,32 @@ import Header from "../components/Header";
 import { useFormik } from "formik";
 import { INITIAL_FORM_VALUES, userDetailsSchema } from "../schemas";
 import useAuth from "../hooks/useAuth";
-
-const onSubmit = async (values, actions) => {
-  console.log(values);
-  console.log(actions);
-
-  actions.resetForm();
-};
+import axios, { USERDETAILS_UPDATE_ENDPOINT } from "../api/axios";
 
 const UserDetails = () => {
+  const onSubmit = async (values, actions) => {
+    const updatedFieldKeys = Object.keys(values).filter(
+      (key) => values[key] !== ""
+    );
+    if (updatedFieldKeys.length === 0) return;
+
+    console.log(updatedFieldKeys);
+    console.log(values);
+    const params = {
+      first_name: values?.first_name,
+      last_name: values?.last_name,
+      official_id: values?.official_id,
+      password: values?.password,
+      email: values?.email,
+      dob: values?.dob,
+      mobile: values?.mobile,
+      address: values?.address,
+      postcode: values?.postcode,
+    };
+    console.log("Params: ", params);
+    writeToDB(params);
+    actions.resetForm();
+  };
   const { auth } = useAuth;
   const {
     values,
@@ -27,7 +44,14 @@ const UserDetails = () => {
     validationSchema: userDetailsSchema,
     onSubmit,
   });
-
+  const writeToDB = (params) => {
+    try {
+      axios.post(USERDETAILS_UPDATE_ENDPOINT, params);
+    } catch (error) {
+      console.log(error);
+    }
+    return;
+  };
   return (
     <>
       <Header />
@@ -94,7 +118,7 @@ const UserDetails = () => {
                         : "form-control form-control-lg light-300"
                     }
                     id="first_name"
-                    placeholder="First Name"
+                    placeholder={auth?.first_name}
                     value={values.first_name}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -117,7 +141,7 @@ const UserDetails = () => {
                         : "form-control form-control-lg light-300"
                     }
                     id="last_name"
-                    placeholder="Last Name"
+                    placeholder={auth?.last_name}
                     value={values.last_name}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -140,7 +164,7 @@ const UserDetails = () => {
                         : "form-control form-control-lg light-300"
                     }
                     id="official_id"
-                    placeholder="NRIC/FIN/Passport"
+                    placeholder={auth?.official_id}
                     value={values.official_id}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -208,7 +232,7 @@ const UserDetails = () => {
                         : "form-control form-control-lg light-300"
                     }
                     id="email"
-                    placeholder="Email"
+                    placeholder={auth?.email}
                     value={values.email}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -230,7 +254,7 @@ const UserDetails = () => {
                         : "form-control form-control-lg light-300"
                     }
                     id="dob"
-                    placeholder="dob"
+                    placeholder={auth?.dob}
                     value={values.dob}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -252,7 +276,7 @@ const UserDetails = () => {
                         : "form-control form-control-lg light-300"
                     }
                     id="mobile"
-                    placeholder="Mobile Number"
+                    placeholder={auth?.mobile}
                     value={values.mobile}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -274,7 +298,7 @@ const UserDetails = () => {
                         : "form-control form-control-lg light-300"
                     }
                     id="address"
-                    placeholder="Address"
+                    placeholder={auth?.address}
                     value={values.address}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -287,22 +311,22 @@ const UserDetails = () => {
               {/* End Input Address */}
               <div className="col-lg-4 mb-4">
                 <div className="">
-                  <label htmlFor="postal_code light-300">Postal Code</label>
+                  <label htmlFor="postcode light-300">Postal Code</label>
                   <input
                     type="number"
                     className={
-                      errors.postal_code && touched.postal_code
+                      errors.postcode && touched.postcode
                         ? "form-control form-control-lg-error light-300-error"
                         : "form-control form-control-lg light-300"
                     }
-                    id="postal_code"
-                    placeholder="Postal Code"
-                    value={values.postal_code}
+                    id="postcode"
+                    placeholder={auth?.postcode}
+                    value={values.postcode}
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
-                  {errors.postal_code && touched.postal_code && (
-                    <em className="text-error">{errors.postal_code}</em>
+                  {errors.postcode && touched.postcode && (
+                    <em className="text-error">{errors.postcode}</em>
                   )}
                 </div>
               </div>
