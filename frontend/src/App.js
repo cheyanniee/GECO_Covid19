@@ -8,6 +8,8 @@ import Work from "./pages/Work";
 import WorkSingle from "./pages/WorkSingle";
 import "./App.css";
 import Login from "./components/Login";
+import UserDetails from "./pages/UserDetails";
+import Unauthorized from "./components/Unauthorized";
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
           <Route path="/contact" element={<Contact />}></Route>
           <Route path="/register" element={<Register />}></Route>
           <Route path="/login" element={<Login />}></Route>
+          <Route path="/userDetails" element={<UserDetails />}></Route>
+          <Route path="/unauthorized" element={<Unauthorized />}></Route>
         </Routes>
       </BrowserRouter>
     </>

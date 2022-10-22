@@ -80,7 +80,7 @@ const Header = () => {
             <Link className="nav-link" to="">
               <i className="bx bx-cog bx-sm text-primary"></i>
             </Link>
-            <Link className="nav-link" to="">
+            <Link className="nav-link" to="/userDetails">
               <i className="bx bx-user-circle bx-sm text-primary"></i>
             </Link>
           </div>
