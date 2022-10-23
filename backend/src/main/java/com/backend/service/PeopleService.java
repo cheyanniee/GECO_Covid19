@@ -158,4 +158,8 @@ public class PeopleService {
         return true;
     }
 
+    public void logout(Long peopleId) throws Exception {
+        updateTokenById("", peopleId);
+    }
+
 }
