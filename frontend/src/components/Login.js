@@ -26,7 +26,6 @@ const Login = () => {
   const [fromMessage, setFromMessage] = useState(location.state?.message);
 
   useEffect(() => {
-    if (localStorage.getItem("token")) navigate("/userDetails");
     passwordRef.current.focus();
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, []);
