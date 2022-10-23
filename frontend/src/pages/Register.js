@@ -9,23 +9,18 @@ import { useNavigate } from "react-router-dom";
 const Register = () => {
   const [errMsg, setErrMsg] = useState("");
   const navigate = useNavigate();
-  const onSubmit = (values, actions) => {
-    console.log(values);
-    postToDB(values);
-    actions.resetForm();
-  };
-
-  const postToDB = async (params) => {
-    console.log("Params before writing:", params);
+  const onSubmit = async (values, actions) => {
+    console.log("params: ", values);
     try {
-      const response = await axios.post(REGISTER_ENDPOINT, params);
+      const response = await axios.post(REGISTER_ENDPOINT, values);
       console.log(response.data);
+      actions.resetForm();
       navigate("/login", {
-        state: { message: "Register successful! Please Login to continue" },
+        state: { message: "Registration successful! Please Login to continue" },
       });
     } catch (error) {
       console.log(error);
-      setErrMsg(error.data);
+      setErrMsg(error.response.data.message);
     }
   };
   const inputRef = useRef();
@@ -327,7 +322,7 @@ const Register = () => {
               </div>
               {/* End Input Postal code */}
               <div className="col-md-12 col-12 m-auto text-end">
-                <em className="text-error">{errMsg}</em>
+                <em className="text-error px-3">{errMsg}</em>
                 <button
                   disabled={isSubmitting}
                   type="submit"
