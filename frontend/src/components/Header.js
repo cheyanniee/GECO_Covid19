@@ -1,7 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
 const Header = () => {
+  const { auth } = useAuth();
   return (
     <nav
       id="main_nav"
@@ -73,24 +75,34 @@ const Header = () => {
               </li>
             </ul>
           </div>
-          <div className="mx-1 mb-2">
-            <Link to="/login">Login</Link>
-          </div>
-          <div className="mx-1 mb-2">|</div>
-          <div className="mx-1 mb-2">
-            <Link to="/register">Register</Link>
-          </div>
-          <div className="navbar align-self-center d-flex">
-            {/* <Link className="nav-link" to="">
+          {auth?.token ? (
+            <>
+              <div className="mx-1 mb-2">
+                <Link to="/login">Logout</Link>
+              </div>
+              <div className="navbar align-self-center d-flex">
+                {/* <Link className="nav-link" to="">
               <i className="bx bx-bell bx-sm bx-tada-hover text-primary"></i>
             </Link>
             <Link className="nav-link" to="">
               <i className="bx bx-cog bx-sm text-primary"></i>
             </Link> */}
-            <Link className="nav-link" to="/userDetails">
-              <i className="bx bx-user-circle bx-sm text-primary"></i>
-            </Link>
-          </div>
+                <Link className="nav-link" to="/userDetails">
+                  <i className="bx bx-user-circle bx-sm text-primary"></i>
+                </Link>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="mx-1 mb-2">
+                <Link to="/login">Login</Link>
+              </div>
+              <div className="mx-1 mb-2">|</div>
+              <div className="mx-1 mb-2">
+                <Link to="/register">Register</Link>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </nav>
