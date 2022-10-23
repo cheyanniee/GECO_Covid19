@@ -34,13 +34,13 @@ function App() {
 
             <Route path="/" element={<Home />}></Route>
             <Route path="/register" element={<Register />}></Route>
-            <Route path="/login" element={<Login />}></Route>
             <Route path="/clinics" element={<ClinicsPage />}></Route>
             <Route path="/unauthorized" element={<Unauthorized />}></Route>
             <Route path="/makeAppt" element={<MakeAppointment />}></Route>
 
             {/* protected routes */}
             <Route element={<PersistLogin />}>
+              <Route path="/login" element={<Login />}></Route>
               <Route element={<RequireAuth allowedRoles={ROLES.User} />}>
                 <Route path="/userDetails" element={<UserDetails />}></Route>
                 <Route

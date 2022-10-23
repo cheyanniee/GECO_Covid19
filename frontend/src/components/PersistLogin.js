@@ -27,7 +27,7 @@ const PersistLogin = () => {
     !auth?.token && persist ? verifyRefreshToken() : setIsLoading(false);
 
     return () => (isMounted = false);
-  }, []);
+  }, [auth?.token, persist, refresh]);
 
   return (
     <>{!persist ? <Outlet /> : isLoading ? <p>Loading...</p> : <Outlet />}</>

@@ -76,18 +76,19 @@ const Header = () => {
           </div>
           {auth?.token ? (
             <>
-              <div className="mx-1 mb-2" onClick={signOut}>
-                Logout
-              </div>
+              <div className="mx-1 mb-2"></div>
               <div className="navbar align-self-center d-flex">
                 {/* <Link className="nav-link" to="">
               <i className="bx bx-bell bx-sm bx-tada-hover text-primary"></i>
-            </Link>
-            <Link className="nav-link" to="">
+              </Link>
+              <Link className="nav-link" to="">
               <i className="bx bx-cog bx-sm text-primary"></i>
             </Link> */}
                 <Link className="nav-link" to="/userDetails">
                   <i className="bx bx-user-circle bx-sm text-primary"></i>
+                </Link>
+                <Link className="nav-link" onClick={signOut}>
+                  <i className="bx bx-log-out bx-sm text-primary"></i>
                 </Link>
               </div>
             </>
