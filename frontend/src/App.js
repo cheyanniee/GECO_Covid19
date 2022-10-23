@@ -13,6 +13,7 @@ import Unauthorized from "./components/Unauthorized";
 import Layout from "./components/Layout";
 import Missing from "./components/Missing";
 import ClinicsPage from "./pages/ClinicsPage";
+import MakeAppointment from "./pages/MakeAppointment";
 
 function App() {
   return (
@@ -30,11 +31,12 @@ function App() {
             <Route path="/" element={<Home />}></Route>
             <Route path="/register" element={<Register />}></Route>
             <Route path="/login" element={<Login />}></Route>
-            <Route path="/userDetails" element={<UserDetails />}></Route>
             <Route path="/clinics" element={<ClinicsPage />}></Route>
             <Route path="/unauthorized" element={<Unauthorized />}></Route>
 
             {/* protected routes */}
+            <Route path="/userDetails" element={<UserDetails />}></Route>
+            <Route path="/makeAppt" element={<MakeAppointment />}></Route>
 
             {/* catch all */}
             <Route path="*" element={<Missing />} />

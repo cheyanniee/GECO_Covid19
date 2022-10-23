@@ -13,7 +13,7 @@ const Login = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from.pathname || "/";
+  const from = location.state?.from?.pathname || "/";
   const registerSuccessMsg = location.state?.message;
 
   const userRef = useRef();
@@ -27,6 +27,7 @@ const Login = () => {
 
   useEffect(() => {
     pwdRef.current.focus();
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, []);
 
   useEffect(() => {
