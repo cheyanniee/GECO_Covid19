@@ -1,9 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import useLogout from "../hooks/useLogout";
 
 const Header = () => {
   const { auth } = useAuth();
+  const logout = useLogout();
+  const signOut = async () => {
+    await logout();
+    redirect("/");
+  };
+
   return (
     <nav
       id="main_nav"
@@ -60,15 +67,7 @@ const Header = () => {
               <li className="nav-item">
                 <Link
                   className="nav-link btn-outline-primary rounded-pill px-3"
-                  to="/makeAppt"
-                >
-                  Make Appointment
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link
-                  className="nav-link btn-outline-primary rounded-pill px-3"
-                  to="/contact"
+                  to="/userCovidStatus"
                 >
                   COVID status
                 </Link>
@@ -77,8 +76,8 @@ const Header = () => {
           </div>
           {auth?.token ? (
             <>
-              <div className="mx-1 mb-2">
-                <Link to="/login">Logout</Link>
+              <div className="mx-1 mb-2" onClick={signOut}>
+                Logout
               </div>
               <div className="navbar align-self-center d-flex">
                 {/* <Link className="nav-link" to="">
