@@ -5,7 +5,7 @@ export const LOGIN_ENDPOINT = "/people/login";
 export const REGISTER_ENDPOINT = "/people/register";
 export const LOGOUT_ENDPOINT = "";
 export const USERDETAILS_UPDATE_ENDPOINT = "";
-export const REFRESHTOKEN_ENDPOINT = "";
+export const REFRESHTOKEN_ENDPOINT = "/people/getpeople";
 
 export const config = ({ token }) => {
   return {
