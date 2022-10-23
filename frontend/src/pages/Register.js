@@ -5,11 +5,13 @@ import { useFormik } from "formik";
 import { INITIAL_FORM_VALUES, registerSchema } from "../schemas";
 import axios, { REGISTER_ENDPOINT } from "../api/axios";
 import { useNavigate } from "react-router-dom";
+import moment from "moment";
 
 const Register = () => {
   const [errMsg, setErrMsg] = useState("");
   const navigate = useNavigate();
   const onSubmit = async (values, actions) => {
+    values = { ...values, dob: moment(values.dob).format("DD/MM/YYYY") };
     console.log("params: ", values);
     try {
       const response = await axios.post(REGISTER_ENDPOINT, values);
@@ -19,7 +21,7 @@ const Register = () => {
         state: { message: "Registration successful! Please Login to continue" },
       });
     } catch (error) {
-      console.log(error);
+      console.log(error.response);
       setErrMsg(error.response.data.message);
     }
   };
