@@ -1,5 +1,6 @@
 package com.backend.controller;
 
+import com.backend.model.PeopleModel;
 import com.backend.request.PeopleRequest;
 import com.backend.response.GeneralResponse;
 import com.backend.service.PeopleService;
@@ -36,6 +37,12 @@ public class PeopleController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(new GeneralResponse(e.getMessage()));
         }
+    }
+
+    @GetMapping("getpeople")
+    public ResponseEntity<?> getPeople(@RequestHeader("token") String token) throws Exception {
+        PeopleModel people = peopleService.getPeopleById(peopleService.getIdByToken(token));
+        return ResponseEntity.ok(people);
     }
 
 }
