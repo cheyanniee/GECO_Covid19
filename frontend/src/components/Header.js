@@ -1,7 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
 const Header = () => {
+  const { auth } = useAuth();
   return (
     <nav
       id="main_nav"
@@ -10,7 +12,7 @@ const Header = () => {
       <div className="container d-flex justify-content-between align-items-center">
         <Link className="navbar-brand h1" to="/">
           <i className="bx bx-buildings bx-sm text-dark"></i>
-          <span className="text-dark h4">Purple</span>{" "}
+          <span className="text-dark h4">Geco</span>{" "}
           <span className="text-primary h4">Buzz</span>
         </Link>
         <button
@@ -30,7 +32,7 @@ const Header = () => {
           id="navbar-toggler-success"
         >
           <div className="flex-fill mx-xl-5 mb-2">
-            <ul className="nav navbar-nav d-flex justify-content-between mx-xl-5 text-center text-dark">
+            <ul className="nav navbar-nav d-flex justify-start mx-xl-5 text-center text-dark">
               <li className="nav-item">
                 <Link
                   className="nav-link btn-outline-primary rounded-pill px-3"
@@ -73,24 +75,34 @@ const Header = () => {
               </li>
             </ul>
           </div>
-          <div className="mx-1 mb-2">
-            <Link to="/login">Login</Link>
-          </div>
-          <div className="mx-1 mb-2">|</div>
-          <div className="mx-1 mb-2">
-            <Link to="/register">Register</Link>
-          </div>
-          <div className="navbar align-self-center d-flex">
-            {/* <Link className="nav-link" to="">
+          {auth?.token ? (
+            <>
+              <div className="mx-1 mb-2">
+                <Link to="/login">Logout</Link>
+              </div>
+              <div className="navbar align-self-center d-flex">
+                {/* <Link className="nav-link" to="">
               <i className="bx bx-bell bx-sm bx-tada-hover text-primary"></i>
             </Link>
             <Link className="nav-link" to="">
               <i className="bx bx-cog bx-sm text-primary"></i>
             </Link> */}
-            <Link className="nav-link" to="/userDetails">
-              <i className="bx bx-user-circle bx-sm text-primary"></i>
-            </Link>
-          </div>
+                <Link className="nav-link" to="/userDetails">
+                  <i className="bx bx-user-circle bx-sm text-primary"></i>
+                </Link>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="mx-1 mb-2">
+                <Link to="/login">Login</Link>
+              </div>
+              <div className="mx-1 mb-2">|</div>
+              <div className="mx-1 mb-2">
+                <Link to="/register">Register</Link>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </nav>

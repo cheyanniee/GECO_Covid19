@@ -9,14 +9,14 @@ const useRefreshToken = ({ token }) => {
       REFRESHTOKEN_ENDPOINT,
       config({ token: token })
     );
+    const userDetails = response?.data || {};
+    console.log("useRefresh details", userDetails);
     setAuth((prev) => {
       console.log(JSON.stringify(prev));
       console.log(response.data.accessToken);
       return {
         ...prev,
-        roles: response.data?.roles,
-        accessToken: response.data?.accessToken,
-        official_id: response.data?.official_id,
+        ...userDetails,
       };
     });
     return response.data.accessToken;
