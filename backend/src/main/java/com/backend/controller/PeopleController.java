@@ -1,5 +1,6 @@
 package com.backend.controller;
 
+import com.backend.configuration.CustomException;
 import com.backend.model.PeopleModel;
 import com.backend.request.PeopleRequest;
 import com.backend.response.GeneralResponse;
@@ -39,10 +40,17 @@ public class PeopleController {
         }
     }
 
-    @GetMapping("getpeople")
+    @GetMapping("getinfo")
     public ResponseEntity<?> getPeople(@RequestHeader("token") String token) throws Exception {
         PeopleModel people = peopleService.getPeopleById(peopleService.getIdByToken(token));
         return ResponseEntity.ok(people);
+    }
+
+    @PostMapping("update")
+    public ResponseEntity<?> updatePeople(@RequestBody PeopleRequest peopleRequest, @RequestHeader("token") String token) throws CustomException {
+        peopleService.updatePeople(peopleRequest,token);
+        return ResponseEntity.ok(new GeneralResponse("User " + peopleRequest.getFirstName() + peopleRequest.getLastName() + " update successfully!"));
+
     }
 
 }
