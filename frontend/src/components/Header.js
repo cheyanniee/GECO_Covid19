@@ -1,14 +1,15 @@
-import React from "react";
-import { Link, redirect } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import useLogout from "../hooks/useLogout";
 
 const Header = () => {
   const { auth } = useAuth();
+  const navigate = useNavigate();
   const logout = useLogout();
   const signOut = async () => {
     await logout();
-    redirect("/");
+    navigate("/login", { state: { message: "You have logged successfully" } });
   };
 
   return (
