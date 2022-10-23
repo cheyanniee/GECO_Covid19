@@ -1,5 +1,6 @@
 package com.backend.service;
 
+import com.backend.configuration.CustomException;
 import com.backend.model.PeopleModel;
 import com.backend.repo.PeopleRepo;
 import com.backend.request.PeopleRequest;
@@ -123,5 +124,38 @@ public class PeopleService {
         return peopleRepo.findById(peopleId).orElseThrow(() -> new Exception("UserID not found"));
     }
 
+    public boolean updatePeople(PeopleRequest peopleRequest, String token) throws CustomException {
+        PeopleModel people = peopleRepo.findById(getIdByToken(token)).orElseThrow(() -> new CustomException("User is not found!"));//get the data bases on primary key
+
+        if (peopleRequest.getFirstName() != null && !peopleRequest.getFirstName().equals("")) {
+            people.setFirstName(peopleRequest.getFirstName());
+        }
+        if (peopleRequest.getLastName() != null && !peopleRequest.getLastName().equals("")) {
+            people.setLastName(peopleRequest.getLastName());
+        }
+        if (peopleRequest.getPassword() != null && !peopleRequest.getPassword().equals("")) {
+            people.setPassword(peopleRequest.getPassword());
+        }
+        if (peopleRequest.getEmail() != null && !peopleRequest.getEmail().equals("")) {
+            people.setEmail(peopleRequest.getEmail());
+        }
+        if (peopleRequest.getPhone() != null && !peopleRequest.getPhone().equals("")) {
+            people.setPhone(peopleRequest.getPhone());
+        }
+        if (peopleRequest.getAddress() != null && !peopleRequest.getAddress().equals("")) {
+            people.setAddress(peopleRequest.getAddress());
+        }
+        if (peopleRequest.getPostcode() != null && !peopleRequest.getPostcode().equals("")) {
+            people.setPostcode(peopleRequest.getPostcode());
+        }
+        if (peopleRequest.getDob() != null && !peopleRequest.getDob().equals("")) {
+            people.setDob(peopleRequest.getDob());
+        }
+        if (peopleRequest.getOfficialId() != null && !peopleRequest.getOfficialId().equals("")) {
+            people.setOfficialId(peopleRequest.getOfficialId());
+        }
+        peopleRepo.save(people);//update the data as it has Primary key
+        return true;
+    }
 
 }
