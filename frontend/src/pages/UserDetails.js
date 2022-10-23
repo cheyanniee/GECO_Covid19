@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import { useFormik } from "formik";
 import { INITIAL_FORM_VALUES, userDetailsSchema } from "../schemas";
 import useAuth from "../hooks/useAuth";
-import axios, { USERDETAILS_UPDATE_ENDPOINT } from "../api/axios";
+import axios, { USERDETAILS_UPDATE_ENDPOINT, config } from "../api/axios";
 import moment from "moment";
 
 const UserDetails = () => {
+  const { auth, setAuth } = useAuth();
+  const [errMsg, setErrMsg] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
+
   const onSubmit = async (values, actions) => {
     const updatedFieldKeys = Object.keys(values).filter(
       (key) => values[key] !== ""
@@ -16,23 +20,31 @@ const UserDetails = () => {
 
     console.log(updatedFieldKeys);
     console.log(values);
-    values = { ...values, dob: moment(values.dob).format("DD/MM/YYYY") };
-    const params = {
-      firstName: values?.firstName,
-      lastName: values?.lastName,
-      officialId: values?.officialId,
-      password: values?.password,
-      email: values?.email,
-      dob: values?.dob,
-      phone: values?.phone,
-      address: values?.address,
-      postcode: values?.postcode,
+    values = {
+      ...values,
+      dob: values.dob ? moment(values.dob).format("DD/MM/YYYY") : "",
     };
+    const params = updatedFieldKeys.reduce((acc, key) => {
+      return { ...acc, [key]: values[key] };
+    }, {});
     console.log("Params: ", params);
-    writeToDB(params);
+    try {
+      const response = await axios.post(
+        USERDETAILS_UPDATE_ENDPOINT,
+        params,
+        config({ token: auth.token })
+      );
+      console.log(response.data);
+      setAuth((prev) => {
+        return { ...prev, ...params };
+      });
+      setSuccessMsg("Update success!");
+    } catch (error) {
+      setErrMsg("Error: " + error.response.data.message);
+      console.log(error);
+    }
     actions.resetForm();
   };
-  const { auth } = useAuth();
   const {
     values,
     errors,
@@ -46,14 +58,12 @@ const UserDetails = () => {
     validationSchema: userDetailsSchema,
     onSubmit,
   });
-  const writeToDB = (params) => {
-    try {
-      axios.post(USERDETAILS_UPDATE_ENDPOINT, params);
-    } catch (error) {
-      console.log(error);
-    }
-    return;
-  };
+
+  useEffect(() => {
+    setErrMsg("");
+    setSuccessMsg("");
+  }, []);
+
   return (
     <>
       <Header />
@@ -93,6 +103,7 @@ const UserDetails = () => {
                 <li className="text-muted">6325 9220</li>
               </ul>
             </div>
+
             <div className="contact row mb-4">
               <div className="contact-icon col-lg-3 col-3">
                 <div className="border py-3 mb-2 text-center border rounded text-secondary">
@@ -335,6 +346,8 @@ const UserDetails = () => {
               </div>
               {/* End Input Postal code */}
               <div className="col-md-12 col-12 m-auto text-end">
+                <em className="text-error px-3">{errMsg}</em>
+                <em className="text-success px-3">{successMsg}</em>
                 <button
                   disabled={isSubmitting}
                   type="submit"

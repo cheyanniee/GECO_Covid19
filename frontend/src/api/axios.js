@@ -4,8 +4,8 @@ export const BASE_URL = "http://localhost:5678";
 export const LOGIN_ENDPOINT = "/people/login";
 export const REGISTER_ENDPOINT = "/people/register";
 export const LOGOUT_ENDPOINT = "";
-export const USERDETAILS_UPDATE_ENDPOINT = "";
-export const REFRESHTOKEN_ENDPOINT = "/people/getpeople";
+export const USERDETAILS_UPDATE_ENDPOINT = "/people/update";
+export const REFRESHTOKEN_ENDPOINT = "/people/getinfo";
 
 export const config = ({ token }) => {
   return {
