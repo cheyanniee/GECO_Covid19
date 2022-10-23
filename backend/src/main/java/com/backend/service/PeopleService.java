@@ -13,10 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class PeopleService {
@@ -47,7 +44,7 @@ public class PeopleService {
                 .phone(peopleRequest.getPhone())
                 .dob(peopleRequest.getDob())
                 .officialId(peopleRequest.getOfficialId())
-                .role(peopleRequest.getRole())
+                .role(Objects.isNull(peopleRequest.getRole()) ? PeopleModel.Role.user : peopleRequest.getRole())
                 .build();
 
         peopleRepo.save(peopleNew);
@@ -121,4 +118,10 @@ public class PeopleService {
             throw new Exception("Update fail");
         }
     }
+
+    public PeopleModel getPeopleById(Long peopleId) throws Exception {
+        return peopleRepo.findById(peopleId).orElseThrow(() -> new Exception("UserID not found"));
+    }
+
+
 }
