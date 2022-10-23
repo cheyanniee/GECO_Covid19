@@ -41,7 +41,7 @@ public class PeopleController {
     }
 
     @GetMapping("getinfo")
-    public ResponseEntity<?> getPeople(@RequestHeader("token") String token) throws Exception {
+    public ResponseEntity<?> getPeople(@RequestHeader String token) throws Exception {
         PeopleModel people = peopleService.getPeopleById(peopleService.getIdByToken(token));
         return ResponseEntity.ok(people);
     }
@@ -51,6 +51,12 @@ public class PeopleController {
         peopleService.updatePeople(peopleRequest,token);
         return ResponseEntity.ok(new GeneralResponse("User " + peopleRequest.getFirstName() + peopleRequest.getLastName() + " update successfully!"));
 
+    }
+
+    @GetMapping("logout")
+    public ResponseEntity<?> logout(@RequestHeader String token) throws Exception {
+            peopleService.logout(peopleService.getIdByToken(token));
+            return ResponseEntity.ok(new GeneralResponse("Logout successfully!"));
     }
 
 }
