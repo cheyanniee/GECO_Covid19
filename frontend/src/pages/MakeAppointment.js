@@ -6,8 +6,6 @@ import "react-datepicker/dist/react-datepicker.css";
 
 const MakeAppointment = () => {
   const [selectedDate, setSelectedDate] = useState();
-  const [hours, setHours] = useState();
-  const [minutes, setMinutes] = useState();
   console.log(selectedDate);
   console.log(selectedDate?.toDateString());
   return (

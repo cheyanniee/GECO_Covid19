@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import { INITIAL_FORM_VALUES, userDetailsSchema } from "../schemas";
 import useAuth from "../hooks/useAuth";
 import axios, { USERDETAILS_UPDATE_ENDPOINT } from "../api/axios";
+import moment from "moment";
 
 const UserDetails = () => {
   const onSubmit = async (values, actions) => {
@@ -15,14 +16,15 @@ const UserDetails = () => {
 
     console.log(updatedFieldKeys);
     console.log(values);
+    values = { ...values, dob: moment(values.dob).format("DD/MM/YYYY") };
     const params = {
-      first_name: values?.first_name,
-      last_name: values?.last_name,
-      official_id: values?.official_id,
+      firstName: values?.firstName,
+      lastName: values?.lastName,
+      officialId: values?.officialId,
       password: values?.password,
       email: values?.email,
       dob: values?.dob,
-      mobile: values?.mobile,
+      phone: values?.phone,
       address: values?.address,
       postcode: values?.postcode,
     };
@@ -30,7 +32,7 @@ const UserDetails = () => {
     writeToDB(params);
     actions.resetForm();
   };
-  const { auth } = useAuth;
+  const { auth } = useAuth();
   const {
     values,
     errors,
@@ -109,23 +111,23 @@ const UserDetails = () => {
             <form className="contact-form row" onSubmit={handleSubmit}>
               <div className="col-lg-4 mb-4">
                 <div className="">
-                  <label htmlFor="first_name light-300">First Name</label>
+                  <label htmlFor="firstName light-300">First Name</label>
                   <input
                     type="text"
                     className={
-                      errors.first_name && touched.first_name
+                      errors.firstName && touched.firstName
                         ? "form-control form-control-lg-error light-300-error"
                         : "form-control form-control-lg light-300"
                     }
-                    id="first_name"
-                    placeholder={auth?.first_name}
-                    value={values.first_name}
+                    id="firstName"
+                    placeholder={auth?.firstName}
+                    value={values.firstName}
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
 
-                  {errors.first_name && touched.first_name && (
-                    <em className="text-error">{errors.first_name}</em>
+                  {errors.firstName && touched.firstName && (
+                    <em className="text-error">{errors.firstName}</em>
                   )}
                 </div>
               </div>
@@ -136,19 +138,19 @@ const UserDetails = () => {
                   <input
                     type="text"
                     className={
-                      errors.last_name && touched.last_name
+                      errors.lastName && touched.lastName
                         ? "form-control form-control-lg-error light-300-error"
                         : "form-control form-control-lg light-300"
                     }
-                    id="last_name"
-                    placeholder={auth?.last_name}
-                    value={values.last_name}
+                    id="lastName"
+                    placeholder={auth?.lastName}
+                    value={values.lastName}
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
 
-                  {errors.last_name && touched.last_name && (
-                    <em className="text-error">{errors.last_name}</em>
+                  {errors.lastName && touched.lastName && (
+                    <em className="text-error">{errors.lastName}</em>
                   )}
                 </div>
               </div>
@@ -159,22 +161,22 @@ const UserDetails = () => {
                   <input
                     type="text"
                     className={
-                      errors.official_id && touched.official_id
+                      errors.officialId && touched.officialId
                         ? "form-control form-control-lg-error light-300-error"
                         : "form-control form-control-lg light-300"
                     }
-                    id="official_id"
-                    placeholder={auth?.official_id}
-                    value={values.official_id}
+                    id="officialId"
+                    placeholder={auth?.officialId}
+                    value={values.officialId}
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
-                  {errors.official_id && touched.official_id && (
-                    <em className="text-error">{errors.official_id}</em>
+                  {errors.officialId && touched.officialId && (
+                    <em className="text-error">{errors.officialId}</em>
                   )}
                 </div>
               </div>
-              {/* End Input official_id */}
+              {/* End Input officialId */}
               <div className="col-lg-4 mb-4">
                 <div className="">
                   <label htmlFor="password light-300">Password</label>
@@ -247,7 +249,7 @@ const UserDetails = () => {
                 <div className="">
                   <label htmlFor="dob light-300">Date of Birth</label>
                   <input
-                    type="date"
+                    type="text"
                     className={
                       errors.dob && touched.dob
                         ? "form-control form-control-lg-error light-300-error"
@@ -256,8 +258,9 @@ const UserDetails = () => {
                     id="dob"
                     placeholder={auth?.dob}
                     value={values.dob}
+                    onFocus={(e) => (e.target.type = "date")}
                     onChange={handleChange}
-                    onBlur={handleBlur}
+                    onBlur={(e) => (e.target.type = "text")}
                   />
                   {errors.dob && touched.dob && (
                     <em className="text-error">{errors.dob}</em>
@@ -267,22 +270,22 @@ const UserDetails = () => {
               {/* End Input Date of Birth */}
               <div className="col-lg-6 mb-4">
                 <div className="">
-                  <label htmlFor="mobile light-300">Mobile Number</label>
+                  <label htmlFor="phone light-300">Mobile Number</label>
                   <input
                     type="number"
                     className={
-                      errors.mobile && touched.mobile
+                      errors.phone && touched.phone
                         ? "form-control form-control-lg-error light-300-error"
                         : "form-control form-control-lg light-300"
                     }
-                    id="mobile"
-                    placeholder={auth?.mobile}
-                    value={values.mobile}
+                    id="phone"
+                    placeholder={auth?.phone}
+                    value={values.phone}
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
-                  {errors.mobile && touched.mobile && (
-                    <em className="text-error">{errors.mobile}</em>
+                  {errors.phone && touched.phone && (
+                    <em className="text-error">{errors.phone}</em>
                   )}
                 </div>
               </div>

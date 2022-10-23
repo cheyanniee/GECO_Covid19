@@ -14,49 +14,53 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
-  const registerSuccessMsg = location.state?.message;
-
-  const userRef = useRef();
-  const pwdRef = useRef();
+  console.log("from: ", from);
+  const emailRef = useRef();
+  const passwordRef = useRef();
   const errRef = useRef();
 
-  const [user, resetUser, userAttribs] = useInput("user", "");
-  const [pwd, setPwd] = useState("");
+  const [email, resetEmail, emailAttribs] = useInput("email", "");
+  const [password, setpassword] = useState("");
   const [errMsg, setErrMsg] = useState("");
   const [check, toggleCheck] = useToggle("persist", false);
+  const [fromMessage, setFromMessage] = useState(location.state?.message);
 
   useEffect(() => {
-    pwdRef.current.focus();
+    passwordRef.current.focus();
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, []);
 
   useEffect(() => {
     setErrMsg("");
-    if (user === "") userRef.current.focus();
-  }, [user, pwd]);
+    if (email === "") emailRef.current.focus();
+  }, [email, password]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setFromMessage("");
     try {
       const response = await axios.post(
         LOGIN_ENDPOINT,
-        JSON.stringify({ user, pwd }),
+        JSON.stringify({ email, password }),
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
         }
       );
-      const accessToken = response?.data?.accessToken;
-      const roles = response?.data?.roles;
-      setAuth({ user, pwd, roles, accessToken });
-      resetUser();
-      setPwd("");
+      const token = response?.data?.token;
+      localStorage.getItem("persist") === "true"
+        ? localStorage.setItem("token", token)
+        : localStorage.removeItem("token");
+      console.log("User details: ", response?.data);
+      setAuth(response.data);
+      resetEmail();
+      setpassword("");
       navigate(from, { replace: true });
     } catch (err) {
       if (!err?.response) {
         setErrMsg("No Server Response");
       } else if (err.response?.status === 400) {
-        setErrMsg("Missing Username or Password");
+        setErrMsg("Wrong Email or password");
       } else if (err.response?.status === 401) {
         setErrMsg("Unauthorized");
       } else {
@@ -74,7 +78,7 @@ const Login = () => {
             <em ref={errRef} className="text-error">
               {errMsg}
             </em>
-            <em className="text-success">{registerSuccessMsg}</em>
+            <em className="text-success">{fromMessage}</em>
             <h1 className="col-12 col-xl-8 h2 text-left text-primary pt-3 mb-3">
               Sign In
             </h1>
@@ -84,9 +88,9 @@ const Login = () => {
                   <input
                     type="text"
                     id="email"
-                    ref={userRef}
+                    ref={emailRef}
                     autoComplete="off"
-                    {...userAttribs}
+                    {...emailAttribs}
                     required
                     className="form-control form-control-lg light-300"
                   />
@@ -98,13 +102,13 @@ const Login = () => {
                   <input
                     type="password"
                     id="password"
-                    onChange={(e) => setPwd(e.target.value)}
-                    value={pwd}
-                    ref={pwdRef}
+                    onChange={(e) => setpassword(e.target.value)}
+                    value={password}
+                    ref={passwordRef}
                     required
                     className="form-control form-control-lg light-300"
                   />
-                  <label htmlFor="password light-300">Password:</label>
+                  <label htmlFor="password light-300">password:</label>
                 </div>
               </div>
               <button className="btn btn-secondary rounded-pill px-md-5 px-4 py-2 radius-0 text-light mb-4 light-300">
