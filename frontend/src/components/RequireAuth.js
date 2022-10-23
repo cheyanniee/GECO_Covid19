@@ -13,7 +13,7 @@ const RequireAuth = ({ allowedRoles }) => {
   ) : (
     <Navigate
       to="/login"
-      state={{ from: location, message: "Please Login to continue" }}
+      state={{ from: location, message: "Please Login to continue." }}
       replace
     />
   );
