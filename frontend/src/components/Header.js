@@ -39,14 +39,14 @@ const Header = () => {
                   Home
                 </Link>
               </li>
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <Link
                   className="nav-link btn-outline-primary rounded-pill px-3"
                   to="/about"
                 >
                   About
                 </Link>
-              </li>
+              </li> */}
               <li className="nav-item">
                 <Link
                   className="nav-link btn-outline-primary rounded-pill px-3"
@@ -58,9 +58,9 @@ const Header = () => {
               <li className="nav-item">
                 <Link
                   className="nav-link btn-outline-primary rounded-pill px-3"
-                  to="/pricing"
+                  to="/makeAppt"
                 >
-                  Pricing
+                  Make Appointment
                 </Link>
               </li>
               <li className="nav-item">
@@ -68,7 +68,7 @@ const Header = () => {
                   className="nav-link btn-outline-primary rounded-pill px-3"
                   to="/contact"
                 >
-                  Contact
+                  COVID status
                 </Link>
               </li>
             </ul>
