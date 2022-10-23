@@ -16,6 +16,8 @@ import Missing from "./components/Missing";
 import ClinicsPage from "./pages/ClinicsPage";
 import MakeAppointment from "./pages/MakeAppointment";
 import { ROLES } from "./helper/Constant";
+import PersistLogin from "./components/PersistLogin";
+import UserCovidStatus from "./pages/UserCovidStatus";
 
 function App() {
   return (
@@ -35,11 +37,17 @@ function App() {
             <Route path="/login" element={<Login />}></Route>
             <Route path="/clinics" element={<ClinicsPage />}></Route>
             <Route path="/unauthorized" element={<Unauthorized />}></Route>
+            <Route path="/makeAppt" element={<MakeAppointment />}></Route>
 
             {/* protected routes */}
-            <Route element={<RequireAuth allowedRoles={ROLES.User} />}>
-              <Route path="/userDetails" element={<UserDetails />}></Route>
-              <Route path="/makeAppt" element={<MakeAppointment />}></Route>
+            <Route element={<PersistLogin />}>
+              <Route element={<RequireAuth allowedRoles={ROLES.User} />}>
+                <Route path="/userDetails" element={<UserDetails />}></Route>
+                <Route
+                  path="/userCovidStatus"
+                  element={<UserCovidStatus />}
+                ></Route>
+              </Route>
             </Route>
             {/* catch all */}
             <Route path="*" element={<Missing />} />

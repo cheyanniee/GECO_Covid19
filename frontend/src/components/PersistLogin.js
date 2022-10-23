@@ -6,14 +6,15 @@ import useLocalStorage from "../hooks/useLocalStorage";
 
 const PersistLogin = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const refresh = useRefreshToken();
   const { auth } = useAuth();
+  const refresh = useRefreshToken({ token: localStorage.getItem("token") });
   const [persist] = useLocalStorage("persist", false);
 
   useEffect(() => {
     let isMounted = true;
 
     const verifyRefreshToken = async () => {
+      console.log("calling refresh token in persist login");
       try {
         await refresh();
       } catch (err) {
@@ -23,17 +24,10 @@ const PersistLogin = () => {
       }
     };
 
-    // persist added here AFTER tutorial video
-    // Avoids unwanted call to verifyRefreshToken
-    !auth?.accessToken && persist ? verifyRefreshToken() : setIsLoading(false);
+    !auth?.token && persist ? verifyRefreshToken() : setIsLoading(false);
 
     return () => (isMounted = false);
   }, []);
-
-  useEffect(() => {
-    console.log(`isLoading: ${isLoading}`);
-    console.log(`aT: ${JSON.stringify(auth?.accessToken)}`);
-  }, [isLoading]);
 
   return (
     <>{!persist ? <Outlet /> : isLoading ? <p>Loading...</p> : <Outlet />}</>
