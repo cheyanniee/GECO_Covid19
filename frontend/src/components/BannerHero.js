@@ -6,11 +6,6 @@ import { Table } from '@table-library/react-table-library/table';
 import axios, { AFFECTED_AREAS_ENDPOINT } from "../api/axios";
 
 const BannerHero = () => {
-
-    const { isLoaded } = useLoadScript({
-        googleMapsApiKey: process.env.REACT_APP_GOOGLEMAPS_APIKEY,
-    })
-
     return (
         <div className="banner-wrapper bg-light">
             <div
@@ -71,6 +66,11 @@ const BannerHero = () => {
 export default BannerHero;
 
 function Map() {
+
+    useLoadScript({
+        googleMapsApiKey: process.env.REACT_APP_GOOGLEMAPS_APIKEY,
+    })
+
     const default_center = {lat: 1.35945, lng: 103.8239};
     const default_zoom = 11;
     const radius = 5000;
