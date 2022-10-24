@@ -24,6 +24,10 @@ export const INITIAL_UPDATE_AREAS_VALUES = {
   regionName: "",
 };
 
+export const INITIAL_ADMIN_SEARCH_VALUES = {
+  id: "",
+}
+
 export const registerSchema = yup.object().shape({
   firstName: yup.string().required("Required"),
   lastName: yup.string().required("Required"),
@@ -70,6 +74,10 @@ export const updateAreasSchema = yup.object().shape({
   postcode: yup.string().required("Required"),
   areaName: yup.string().required("Required"),
   regionName: yup.string().required("Required"),
+});
+
+export const adminSeachSchema = yup.object().shape({
+  id: yup.number().positive().integer().required("Required"),
 });
 
 export const userDetailsSchema = yup.object().shape({
