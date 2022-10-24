@@ -17,6 +17,9 @@ public interface PeopleRepo extends JpaRepository<PeopleModel, Long> {
     @Query("SELECT people from PeopleModel people where email=?1 and password=?2")
     Optional<PeopleModel> getPeopleByEmailAndPassword(String email, String password);
 
+    @Query("select people from PeopleModel people where official_id=?1")
+    Optional<PeopleModel> getPeopleByOfficialId(String officialId);
+
     @Modifying
     @Transactional
     @Query("update PeopleModel set token = ?1 where id = ?2")

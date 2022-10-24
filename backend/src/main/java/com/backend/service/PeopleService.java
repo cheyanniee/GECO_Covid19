@@ -31,10 +31,16 @@ public class PeopleService {
 
     public void createUser(PeopleRequest peopleRequest) throws Exception {
 
-        Optional<PeopleModel> userExist = peopleRepo.getPeopleByEmail(peopleRequest.getEmail());
-        if (userExist.isPresent()) {
+        Optional<PeopleModel> emailExist = peopleRepo.getPeopleByEmail(peopleRequest.getEmail());
+        if (emailExist.isPresent()) {
             throw new Exception("Email already exists.");
         }
+
+        Optional<PeopleModel> officialIdExist = peopleRepo.getPeopleByOfficialId(peopleRequest.getOfficialId());
+        if(officialIdExist.isPresent()){
+            throw new Exception("Official ID already exists.");
+        }
+
         PeopleModel peopleNew = PeopleModel.builder()
                 .lastName(peopleRequest.getLastName())
                 .firstName(peopleRequest.getFirstName())
@@ -70,6 +76,11 @@ public class PeopleService {
         return Long.valueOf((String) validateJWT(token).getBody().get("jti"));
     }
 
+    public PeopleModel.Role getRoleByToken(String token) {
+        PeopleModel.Role role = PeopleModel.Role.valueOf(validateJWT(token).getBody().get("role").toString());
+        return role;
+    }
+
     public PeopleModel loginValidate(String email, String password) throws Exception {
         Optional<PeopleModel> peopleOpt = peopleRepo.getPeopleByEmailAndPassword(email, password);
         if (peopleOpt.isPresent()) {
@@ -100,6 +111,7 @@ public class PeopleService {
                 .setId(String.valueOf(people.getId()))
                 .setIssuedAt(new Date())
                 .setExpiration(cal.getTime())
+                .claim("role",people.getRole())
                 .signWith(SignatureAlgorithm.HS512, environment.getProperty("JWT_SECRET"))
                 .compact();
     }
@@ -162,4 +174,7 @@ public class PeopleService {
         updateTokenById("", peopleId);
     }
 
+    public PeopleModel findPeopleByOfficialId(String officialId) throws CustomException {
+        return peopleRepo.getPeopleByOfficialId(officialId).orElseThrow(() -> new CustomException("No user with this Official ID."));
+    }
 }
