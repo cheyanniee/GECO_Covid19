@@ -1,5 +1,7 @@
 package com.backend.controller;
 
+import com.backend.configuration.CustomException;
+import com.backend.model.PeopleModel;
 import com.backend.request.PeopleRequest;
 import com.backend.response.GeneralResponse;
 import com.backend.service.PeopleService;
@@ -27,6 +29,34 @@ public class PeopleController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(new GeneralResponse(e.getMessage()));
         }
+    }
+
+    @PostMapping("login")
+    public ResponseEntity<?> login(@RequestBody PeopleRequest peopleRequest) {
+        try {
+            return ResponseEntity.ok(peopleService.loginValidate(peopleRequest.getEmail(), peopleRequest.getPassword()));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new GeneralResponse(e.getMessage()));
+        }
+    }
+
+    @GetMapping("getinfo")
+    public ResponseEntity<?> getPeople(@RequestHeader String token) throws Exception {
+        PeopleModel people = peopleService.getPeopleById(peopleService.getIdByToken(token));
+        return ResponseEntity.ok(people);
+    }
+
+    @PostMapping("update")
+    public ResponseEntity<?> updatePeople(@RequestBody PeopleRequest peopleRequest, @RequestHeader("token") String token) throws CustomException {
+        peopleService.updatePeople(peopleRequest,token);
+        return ResponseEntity.ok(new GeneralResponse("User " + peopleRequest.getFirstName() + peopleRequest.getLastName() + " update successfully!"));
+
+    }
+
+    @GetMapping("logout")
+    public ResponseEntity<?> logout(@RequestHeader String token) throws Exception {
+            peopleService.logout(peopleService.getIdByToken(token));
+            return ResponseEntity.ok(new GeneralResponse("Logout successfully!"));
     }
 
 }

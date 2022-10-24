@@ -1,18 +1,17 @@
 import React from "react";
-import BannerHero from "../components/BannerHero";
-import Clinics from "../components/Clinics";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import SearchUsers from "../components/SearchUsers";
 
-const Home = () => {
+const AdminSearch = () => {
   return (
     <>
       <Header />
-      <BannerHero />
-      <Clinics />
+      Admin Search Page
+      <SearchUsers />
       <Footer />
     </>
   );
 };
 
-export default Home;
+export default AdminSearch;

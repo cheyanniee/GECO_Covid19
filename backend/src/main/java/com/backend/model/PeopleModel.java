@@ -7,7 +7,7 @@ import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.ZonedDateTime;
 
 @Entity
 @Table(name = "people")
@@ -23,7 +23,7 @@ import java.util.Date;
 public class PeopleModel {
 
     public enum Role {
-        user,doctor,admin;
+        user,doctor,admin
     }
 
     @Id
@@ -50,6 +50,5 @@ public class PeopleModel {
     Role role;
 
     @Column(name = "last_login")
-    @Temporal(TemporalType.TIMESTAMP)
-    Date lastLogin;
+    ZonedDateTime lastLogin;
 }

@@ -1,18 +1,15 @@
 import React from "react";
-import BannerHero from "../components/BannerHero";
-import Clinics from "../components/Clinics";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 
-const Home = () => {
+const AdminUpdate = () => {
   return (
     <>
       <Header />
-      <BannerHero />
-      <Clinics />
+      Admin Update Page
       <Footer />
     </>
   );
 };
 
-export default Home;
+export default AdminUpdate;
