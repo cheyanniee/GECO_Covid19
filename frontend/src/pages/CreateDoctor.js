@@ -11,7 +11,36 @@ import useAuth from "../hooks/useAuth";
 const CreateDoctor = () => {
   const { auth } = useAuth();
   const [errMsg, setErrMsg] = useState("");
+  const [clinics, setClinics] = useState([]);
+  const [cName, setCName] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(
+                    CLINICS_ENDPOINT
+                );
+                console.log("data", response?.data);
+                setClinics(response?.data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchData();
+    }, []);
+
+    const getPlaceId = (e) => {
+        console.log(e.target.value);
+
+        for (let i=0; i<clinics.length; i++) {
+            if (clinics[i].clinicName == e.target.value) {
+                values.placeId = clinics[i].id;
+                console.log(clinics[i]);
+                break;
+            }
+        }
+      }
 
   const onSubmit = async (values, actions) => {
     values = { ...values, dob: moment(values.dob).format("DD/MM/YYYY") };
@@ -26,7 +55,9 @@ const CreateDoctor = () => {
       setErrMsg(error.response.data.message);
     }
   };
+
   const inputRef = useRef();
+
   const {
     values,
     errors,
@@ -40,6 +71,7 @@ const CreateDoctor = () => {
     validationSchema: registerDoctorSchema,
     onSubmit,
   });
+
   useEffect(() => {
     inputRef.current.focus();
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
@@ -282,26 +314,28 @@ const CreateDoctor = () => {
               {/* End Input phone */}
               <div className="col-lg-4 mb-4">
                 <div className="form-floating">
-                  <input
-                    type="number"
-                    className={
-                      errors.placeId && touched.placeId
-                        ? "form-control form-control-lg-error light-300-error"
-                        : "form-control form-control-lg light-300"
-                    }
-                    id="placeId"
-                    placeholder="Clinic"
-                    value={values.placeId}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
+                  <select
+                      className={
+                        errors.clinic && touched.clinic
+                          ? "form-control form-control-lg-error light-300-error"
+                          : "form-control form-control-lg light-300"
+                      }
+                      id="clinic"
+                      placeholder="Clinic"
+                      value={values.clinic}
+                      onChange= {e => {handleChange(e); getPlaceId(e);}}
+                      onBlur={handleBlur}
+                    >
+                      <option value="" label="Select a Clinic">Select a Clinic{" "}</option>
+                      {clinics.map((clinic) => (<option value={clinic.clinicName} label={clinic.clinicName}>{clinic.clinicName}</option>))}
+                    </select>
                   <label htmlFor="phone light-300">Clinic</label>
-                  {errors.placeId && touched.placeId && (
-                    <em className="text-error">{errors.placeId}</em>
+                  {errors.clinic && touched.clinic && (
+                    <em className="text-error">{errors.clinic}</em>
                   )}
                 </div>
               </div>
-              {/* End Input placeId */}
+              {/* End Input clinic */}
               <div className="col-8">
                 <div className="form-floating mb-4">
                   <input

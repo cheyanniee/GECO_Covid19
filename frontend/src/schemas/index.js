@@ -40,6 +40,7 @@ export const INITIAL_DOCTOR_FORM_VALUES = {
   address: "",
   postcode: "",
   placeId: "",
+  clinic: "",
 };
 
 export const registerSchema = yup.object().shape({
@@ -161,4 +162,5 @@ export const registerDoctorSchema = yup.object().shape({
     .positive()
     .integer()
     .required("Please enter valid clinic"),
+  clinic: yup.string().required("Required"),
 });
