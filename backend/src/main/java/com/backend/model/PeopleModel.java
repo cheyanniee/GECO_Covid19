@@ -1,10 +1,13 @@
 package com.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.vladmihalcea.hibernate.type.basic.PostgreSQLEnumType;
 import lombok.*;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.ZonedDateTime;
 
 @Entity
 @Table(name = "people")
@@ -13,10 +16,14 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@TypeDef(
+        name = "pgsql_enum",
+        typeClass = PostgreSQLEnumType.class
+)
 public class PeopleModel {
 
     public enum Role {
-        user,doctor,admin;
+        user,doctor,admin
     }
 
     @Id
@@ -39,9 +46,9 @@ public class PeopleModel {
 
     String token;
     @Enumerated(EnumType.STRING)
+    @Type( type = "pgsql_enum" )
     Role role;
 
     @Column(name = "last_login")
-    @Temporal(TemporalType.TIMESTAMP)
-    Date lastLogin;
+    ZonedDateTime lastLogin;
 }
