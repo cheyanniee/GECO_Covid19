@@ -3,15 +3,62 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import { useFormik } from "formik";
 import { INITIAL_UPDATE_AREAS_VALUES, updateAreasSchema } from "../schemas";
-import axios, { UPDATE_AREAS_ENDPOINT } from "../api/axios";
+import axios, { AFFECTED_AREAS_ENDPOINT, UPDATE_AREAS_ENDPOINT } from "../api/axios";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
 
 const AdminUpdate = () => {
   const [errMsg, setErrMsg] = useState("");
   const navigate = useNavigate();
+
+  const [affected, setAffected] = useState([]);
+  const [areas, setAreas] = useState([]);
+  const [postalCode, setPostalCode] = useState("");
+  const [areaID, setAreaID] = useState("");
+
+  useEffect(() => {
+      const fetchData = async () => {
+          try {
+              const response = await axios.get(
+                  AFFECTED_AREAS_ENDPOINT
+              );
+              console.log("data", response?.data);
+              setAffected(response?.data);
+          } catch (error) {
+              console.log(error);
+          }
+      };
+      fetchData();
+  }, []);
+
+  const repopulateAreas = (e) => {
+    var tempAreas = [];
+    for (let i=0; i<affected.length; i++) {
+        if (affected[i].regionName.toLowerCase() === e.target.value.toLowerCase()) {
+            tempAreas.push(affected[i].areaName);
+        }
+    }
+    setAreas(tempAreas);
+    console.log("temp areas: ", tempAreas);
+  }
+
+  const getPostalCode = (e) => {
+    for (let i=0; i<affected.length; i++) {
+        if ((affected[i].regionName == values.regionName) && (affected[i].areaName == values.areaName)) {
+            setAreaID(affected[i].id);
+            setPostalCode(affected[i].postcode);
+            break;
+        }
+    }
+  }
+
   const onSubmit = async (values, actions) => {
     values = { ...values };
+
+    const params = {
+        "id": areaID,
+        "caseCount": values.caseCount
+    };
     console.log("params: ", values);
     try {
       const response = await axios.post(UPDATE_AREAS_ENDPOINT, values);
@@ -102,29 +149,6 @@ const AdminUpdate = () => {
             <form className="contact-form row" onSubmit={handleSubmit}>
               <div className="col-lg-4 mb-4">
                 <div className="form-floating">
-                  <input
-                    type="text"
-                    className={
-                      errors.postcode && touched.postcode
-                        ? "form-control form-control-lg-error light-300-error"
-                        : "form-control form-control-lg light-300"
-                    }
-                    id="postcode"
-                    ref={inputRef}
-                    placeholder="Postal Code"
-                    value={values.postcode}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                  <label htmlFor="firstName light-300">Postal Code</label>
-                  {errors.postcode && touched.postcode && (
-                    <em className="text-error">{errors.postcode}</em>
-                  )}
-                </div>
-              </div>
-              {/* End Input Postal Code */}
-              <div className="col-lg-4 mb-4">
-                <div className="form-floating">
                     <select
                       className={
                         errors.regionName && touched.regionName
@@ -134,7 +158,7 @@ const AdminUpdate = () => {
                       id="regionName"
                       placeholder="Region Name"
                       value={values.regionName}
-                      onChange= {e => {handleChange(e);}}
+                      onChange= {e => {handleChange(e); repopulateAreas(e);}}
                       onBlur={handleBlur}
                     >
                       <option value="" label="Select a Region">Select a Region{" "}</option>
@@ -153,8 +177,7 @@ const AdminUpdate = () => {
               {/* End Input regionName */}
               <div className="col-lg-4 mb-4">
                 <div className="form-floating">
-                  <input
-                    type="text"
+                  <select
                     className={
                       errors.areaName && touched.areaName
                         ? "form-control form-control-lg-error light-300-error"
@@ -163,9 +186,12 @@ const AdminUpdate = () => {
                     id="areaName"
                     placeholder="Area Name"
                     value={values.areaName}
-                    onChange={handleChange}
+                    onChange= {e => {handleChange(e); getPostalCode(e);}}
                     onBlur={handleBlur}
-                  />
+                  >
+                    <option value="" label="Select an Area">Select an Area{" "}</option>
+                    {areas.map((area) => (<option value={area} label={area}>{area}</option>))}
+                  </select>
                   <label htmlFor="last-name light-300">Area Name</label>
                   {errors.areaName && touched.areaName && (
                     <em className="text-error">{errors.areaName}</em>
@@ -173,6 +199,29 @@ const AdminUpdate = () => {
                 </div>
               </div>
               {/* End Input areaName */}
+              <div className="col-lg-4 mb-4">
+                <div className="form-floating">
+                  <input
+                    type="text"
+                    className={
+                      errors.postcode && touched.postcode
+                        ? "form-control form-control-lg-error light-300-error"
+                        : "form-control form-control-lg light-300"
+                    }
+                    id="postcode"
+                    ref={inputRef}
+                    placeholder="Postal Code"
+                    value={postalCode}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                  <label htmlFor="firstName light-300">Postal Code</label>
+                  {errors.postcode && touched.postcode && (
+                    <em className="text-error">{errors.postcode}</em>
+                  )}
+                </div>
+              </div>
+              {/* End Postal Code Label */}
               <div className="col-lg-4 mb-4">
                 <div className="form-floating">
                   <input
