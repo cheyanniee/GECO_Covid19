@@ -8,6 +8,9 @@ export const USERDETAILS_UPDATE_ENDPOINT = "/people/update";
 export const REFRESHTOKEN_ENDPOINT = "/people/getinfo";
 export const PATIENTS_SEARCH_ENDPOINT = "/people/listall";
 export const AFFECTED_AREAS_ENDPOINT = "/affected/listall";
+export const CLINICS_ENDPOINT = "/clinic/listall";
+export const USERCOVID_RESULT_ENDPOINT = "/visit/result";
+export const DOCTOR_CREATE_ENDPOINT = "/visit/create";
 
 export const config = ({ token }) => {
   return {

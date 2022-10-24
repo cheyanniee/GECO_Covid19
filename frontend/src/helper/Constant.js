@@ -10,3 +10,8 @@ export const VACCINE_DOSE = [
   "Sinovac-CoronaVac",
 ];
 export const COVID_TEST_RESULTS = ["POSITIVE", "NEGATIVE"];
+export const TEST_RESULTS = {
+  pending: "PENDING",
+  positive: "POSITIVE",
+  negative: "NEGATIVE",
+};
