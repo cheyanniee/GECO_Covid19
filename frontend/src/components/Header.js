@@ -88,7 +88,7 @@ const Header = () => {
                 <li className="nav-item">
                   <Link
                     className="nav-link btn-outline-primary rounded-pill px-3"
-                    to="/doctorSearch"
+                    to="/doctorTest"
                   >
                     COVID-19 Test
                   </Link>

@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import axios, { config, PATIENTS_SEARCH_ENDPOINT } from "../api/axios";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import { ROLES, VACCINE_DOSE } from "../helper/Constant";
+import { COVID_TEST_RESULTS, ROLES } from "../helper/Constant";
 import useAuth from "../hooks/useAuth";
 
-const DoctorSearch = () => {
+const DoctorTest = () => {
   const { auth } = useAuth();
   const [data, setData] = useState([]);
   const [apiSearch, setApiSearch] = useState([]);
@@ -17,6 +17,7 @@ const DoctorSearch = () => {
           PATIENTS_SEARCH_ENDPOINT,
           config({ token: auth.token })
         );
+        console.log("data", response?.data);
         setData(
           response?.data?.filter((patient) => patient.role === ROLES.User)
         );
@@ -48,7 +49,7 @@ const DoctorSearch = () => {
         <div className="row">
           <div className="worksingle-content col-lg-10 m-auto text-left justify-content-center">
             <h2 className="worksingle-heading h3 pb-5 light-300 typo-space-line">
-              Patients Vaccination Update
+              Patients Covid-19 Test Update
             </h2>
           </div>
         </div>
@@ -76,8 +77,8 @@ const DoctorSearch = () => {
             <div className="row align-items-start text-primary fs-4 mb-3">
               <div className="col-2">Official ID</div>
               <div className="col-2">Full Name</div>
-              <div className="col-3">Vaccination Date</div>
-              <div className="col-2">Doses</div>
+              <div className="col-3">COVID-19 Test Date</div>
+              <div className="col-2">Result</div>
               <div className="col-2">Action</div>
             </div>
             {data.map((patient) => {
@@ -93,16 +94,16 @@ const DoctorSearch = () => {
                       <input
                         type="date"
                         className="form-control light-300"
-                        id="vacDate"
+                        id="testDate"
                       />
                     )}
                   </div>
                   <div className="col-2">
                     {firstName && (
                       <select className="form-select">
-                        <option>Select Dose</option>
-                        {VACCINE_DOSE.map((dose) => (
-                          <option key={dose}>{dose}</option>
+                        <option>Select Result</option>
+                        {COVID_TEST_RESULTS.map((result) => (
+                          <option key={result}>{result}</option>
                         ))}
                       </select>
                     )}
@@ -125,4 +126,4 @@ const DoctorSearch = () => {
   );
 };
 
-export default DoctorSearch;
+export default DoctorTest;
