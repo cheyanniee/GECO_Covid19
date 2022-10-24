@@ -22,7 +22,7 @@ public class PeopleController {
     }
 
     @PostMapping("register")
-    public ResponseEntity<?> peopleRegister(@RequestBody PeopleRequest peopleRequest) {
+    public ResponseEntity<?> registerPeople(@RequestBody PeopleRequest peopleRequest) {
         try {
             peopleService.createUser(peopleRequest);
             return ResponseEntity.ok(new GeneralResponse("Register successfully!"));
