@@ -118,7 +118,16 @@ function Map() {
                     AFFECTED_AREAS_ENDPOINT
                 );
                 console.log("data", response?.data);
-                setAffected(response?.data);
+
+                var temp = [];
+                if (response?.data.length>0) {
+                    for (let i=0; i<response?.data.length; i++) {
+                        if (response?.data[i].caseCount > 0) {
+                            temp.push(response?.data[i]);
+                        }
+                    }
+                }
+                setAffected(temp);
             } catch (error) {
                 console.log(error);
             }
