@@ -37,11 +37,17 @@ public class TokenInterceptor implements HandlerInterceptor {
         if (token == null || token.isBlank()) {
             throw new CustomException("No token");
         }
-//        if (userId == null || userId.isBlank()) {
-//            throw new CustomException("No userId");
+
+//        if(currentURL.endsWith("people/find")){
+//            if(peopleService.getRoleByToken(token)!= PeopleModel.Role.doctor){
+//                throw new CustomException("Only doctor can search.");
+//            }
 //        }
+
+
         try {
             Long peopleId = peopleService.getIdByToken(token);
+//            System.out.println(peopleService.getRoleByToken(token)!= PeopleModel.Role.doctor);
 
 
 //            Integer intUserId = Integer.parseInt(userId);
