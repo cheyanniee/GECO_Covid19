@@ -156,7 +156,6 @@ function Map() {
 
 function AffectedTable(props) {
     const heading = ["Region", "Area", "Postal Code", "Case Count"];
-
     const [affected, setAffected] = useState([]);
 
     useEffect(() => {
@@ -166,8 +165,17 @@ function AffectedTable(props) {
                     AFFECTED_AREAS_ENDPOINT
                 );
                 console.log("data", response?.data);
-                response?.data.sort((a,b) => (a.regionName > b.regionName) ? 1 : ((b.regionName > a.regionName) ? -1 : 0))
-                setAffected(response?.data);
+                response?.data.sort((a,b) => (a.regionName > b.regionName) ? 1 : ((b.regionName > a.regionName) ? -1 : 0));
+
+                var temp = [];
+                if (response?.data.length>0) {
+                    for (let i=0; i<response?.data.length; i++) {
+                        if (response?.data[i].caseCount > 0) {
+                            temp.push(response?.data[i]);
+                        }
+                    }
+                }
+                setAffected(temp);
             } catch (error) {
                 console.log(error);
             }
