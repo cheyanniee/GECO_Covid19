@@ -114,7 +114,7 @@ const Header = () => {
                     className="nav-link btn-outline-primary rounded-pill px-3"
                     to="/adminSearch"
                   >
-                    Search All Users
+                    Search Users
                   </Link>
                 </li>
               ) : (
@@ -126,7 +126,19 @@ const Header = () => {
                     className="nav-link btn-outline-primary rounded-pill px-3"
                     to="/adminUpdate"
                   >
-                    Update Infected Areas
+                    Infected Areas
+                  </Link>
+                </li>
+              ) : (
+                ""
+              )}
+              {auth?.role === ROLES.Gov_Offical ? (
+                <li className="nav-item">
+                  <Link
+                    className="nav-link btn-outline-primary rounded-pill px-3"
+                    to="/createDoctor"
+                  >
+                    Create Doctor
                   </Link>
                 </li>
               ) : (
