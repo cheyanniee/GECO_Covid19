@@ -1,7 +1,9 @@
-import { React } from "react";
+import { React, useEffect, useState } from "react";
 
 import { GoogleMap, useLoadScript, Circle } from '@react-google-maps/api';
 import { Table } from '@table-library/react-table-library/table';
+
+import axios, { AFFECTED_AREAS_ENDPOINT } from "../api/axios";
 
 const BannerHero = () => {
 
@@ -107,67 +109,41 @@ function Map() {
         center: {lat: 1.3556, lng: 103.7086}
     };
 
-    const affected_areas = [
-                             {
-                               "id": "1",
-                               "caseCount": "4415",
-                               "postcode": "550106",
-                               "areaName": "Serangoon",
-                               "regionName": "Central"
-                             },
-                             {
-                               "id": "2",
-                               "caseCount": "9963",
-                               "postcode": "658923",
-                               "areaName": "Chua Chu Kang",
-                               "regionName": "West"
-                             },
-                             {
-                               "id": "3",
-                               "caseCount": "8859",
-                               "postcode": "640210",
-                               "areaName": "Boon Lay",
-                               "regionName": "West"
-                             },
-                             {
-                               "id": "4",
-                               "caseCount": "3333",
-                               "postcode": "068600",
-                               "areaName": "Telok Blangah",
-                               "regionName": "South"
-                             },
-                               {
-                               "id": "5",
-                               "caseCount": "2323",
-                               "postcode": "617877",
-                               "areaName": "Yishun",
-                               "regionName": "North"
-                             }
-                           ];
+    const [affected, setAffected] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(
+                    AFFECTED_AREAS_ENDPOINT
+                );
+                console.log("data", response?.data);
+                setAffected(response?.data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchData();
+    }, []);
 
     var places = [];
 
-    for (let i=0; i<affected_areas.length; i++) {
-        let area = affected_areas[i];
+    for (let i=0; i<affected.length; i++) {
+        let area = affected[i];
         if ((area.regionName.toLowerCase() === "north") && (places.indexOf(north) === -1)) {
             places.push(north);
-            console.log(area);
         } else if ((area.regionName.toLowerCase() === "south") && (places.indexOf(south) === -1)) {
             places.push(south);
-            console.log(area);
         } else if ((area.regionName.toLowerCase() === "east") && (places.indexOf(east) === -1)) {
             places.push(east);
-            console.log(area);
         } else if ((area.regionName.toLowerCase() === "west") && (places.indexOf(west) === -1)) {
             places.push(west);
-            console.log(area);
         } else if ((area.regionName.toLowerCase() === "central") && (places.indexOf(central) === -1)) {
             places.push(central);
-            console.log(area);
         }
     };
 
-    console.log(places);
+//    console.log(places);
 
     return (
         <GoogleMap zoom={default_zoom} center={default_center} mapContainerClassName="map-container">
@@ -181,43 +157,22 @@ function Map() {
 function AffectedTable(props) {
     const heading = ["Region", "Area", "Postal Code", "Case Count"];
 
-    const affected_areas = [
-                                 {
-                                   "id": "1",
-                                   "caseCount": "4415",
-                                   "postcode": "550106",
-                                   "areaName": "Serangoon",
-                                   "regionName": "Central"
-                                 },
-                                 {
-                                   "id": "2",
-                                   "caseCount": "9963",
-                                   "postcode": "658923",
-                                   "areaName": "Chua Chu Kang",
-                                   "regionName": "West"
-                                 },
-                                 {
-                                   "id": "3",
-                                   "caseCount": "8859",
-                                   "postcode": "640210",
-                                   "areaName": "Boon Lay",
-                                   "regionName": "West"
-                                 },
-                                 {
-                                   "id": "4",
-                                   "caseCount": "3333",
-                                   "postcode": "068600",
-                                   "areaName": "Telok Blangah",
-                                   "regionName": "South"
-                                 },
-                                   {
-                                   "id": "5",
-                                   "caseCount": "2323",
-                                   "postcode": "617877",
-                                   "areaName": "Yishun",
-                                   "regionName": "North"
-                                 }
-                               ];
+    const [affected, setAffected] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(
+                    AFFECTED_AREAS_ENDPOINT
+                );
+                console.log("data", response?.data);
+                setAffected(response?.data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchData();
+    }, []);
 
     return (
         <div className="table-container">
@@ -230,7 +185,7 @@ function AffectedTable(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {affected_areas.map((row) => (
+                    {affected.map((row) => (
                         <tr>
                             <td>
                                 {row.regionName}

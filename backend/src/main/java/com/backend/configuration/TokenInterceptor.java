@@ -27,6 +27,11 @@ public class TokenInterceptor implements HandlerInterceptor {
         if (currentURL.contains("people/loadImg")) {
             return true;
         }
+
+        if (currentURL.contains("affected/listall")) {
+            return true;
+        }
+
         if (currentURL.endsWith("people/login") || currentURL.endsWith("people/register")) {
             return true;
         }
