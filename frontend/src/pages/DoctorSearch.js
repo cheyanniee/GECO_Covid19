@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import axios, { config, PATIENTS_SEARCH_ENDPOINT } from "../api/axios";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import { ROLES } from "../helper/Constant";
+import { ROLES, VACCINE_DOSE } from "../helper/Constant";
 import useAuth from "../hooks/useAuth";
 
 const DoctorSearch = () => {
@@ -35,7 +35,8 @@ const DoctorSearch = () => {
             item.role.includes(ROLES.User)
         : false;
     });
-    setData(filterResult);
+    if (filterResult.length > 0) setData(filterResult);
+    else setData([{ officialId: "No result for " + inputText }]);
   };
 
   return (
@@ -73,30 +74,41 @@ const DoctorSearch = () => {
             <div className="row align-items-start text-primary fs-4 mb-3">
               <div className="col-2">Official ID</div>
               <div className="col-2">Full Name</div>
-              <div className="col-2">Date</div>
+              <div className="col-3">Vaccination Date</div>
               <div className="col-2">Doses</div>
               <div className="col-2">Action</div>
             </div>
             {data?.map((patient) => {
-              const { id, firstName, lastName, officialId, role } = patient;
+              const { id, firstName, lastName, officialId } = patient;
               return (
                 <div key={id} className="row align-items-start mb-2">
                   <div className="col-2">{officialId}</div>
                   <div className="col-2">
                     {firstName} {lastName}
                   </div>
-                  <div className="col-2">{role}</div>
-                  <div className="col-2">
-                    <select className="form-select">
-                      <option>Pizer</option>
-                      <option>Moderna</option>
-                      <option>Sinovac</option>
-                    </select>
+                  <div className="col-3">
+                    <input
+                      type="date"
+                      className="form-control light-300"
+                      id="vacDate"
+                    />
                   </div>
                   <div className="col-2">
-                    <Link>
-                      <i className="bx bx-pencil bx-sm" />
-                    </Link>
+                    {firstName && (
+                      <select className="form-select">
+                        <option>Select Dose</option>
+                        {VACCINE_DOSE.map((dose) => (
+                          <option>{dose}</option>
+                        ))}
+                      </select>
+                    )}
+                  </div>
+                  <div className="col-2">
+                    {firstName && (
+                      <Link>
+                        <i className="bx bx-pencil bx-sm" />
+                      </Link>
+                    )}
                   </div>
                 </div>
               );

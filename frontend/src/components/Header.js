@@ -78,7 +78,7 @@ const Header = () => {
                     className="nav-link btn-outline-primary rounded-pill px-3"
                     to="/doctorSearch"
                   >
-                    Vacination
+                    Vaccination
                   </Link>
                 </li>
               ) : (
