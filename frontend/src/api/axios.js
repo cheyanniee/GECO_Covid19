@@ -1,12 +1,13 @@
 import axios from "axios";
 
-export const BASE_URL = "http://localhost:5678";
+export const BASE_URL = "http://localhost:8081";
 export const LOGIN_ENDPOINT = "/people/login";
 export const REGISTER_ENDPOINT = "/people/register";
 export const LOGOUT_ENDPOINT = "/people/logout";
 export const USERDETAILS_UPDATE_ENDPOINT = "/people/update";
 export const REFRESHTOKEN_ENDPOINT = "/people/getinfo";
 export const PATIENTS_SEARCH_ENDPOINT = "/people/listall";
+export const AFFECTED_AREAS_ENDPOINT = "/affected/listall";
 
 export const config = ({ token }) => {
   return {
