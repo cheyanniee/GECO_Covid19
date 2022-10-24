@@ -23,6 +23,7 @@ import AdminSearch from "./pages/AdminSearch";
 import AdminUpdate from "./pages/AdminUpdate";
 import DoctorTest from "./pages/DoctorTest";
 import UserVaccination from "./pages/UserVaccination";
+import CreateDoctor from "./pages/CreateDoctor";
 
 function App() {
   return (
@@ -63,6 +64,7 @@ function App() {
               >
                 <Route path="/adminUpdate" element={<AdminUpdate />}></Route>
                 <Route path="/adminSearch" element={<AdminSearch />}></Route>
+                <Route path="/createDoctor" element={<CreateDoctor />}></Route>
               </Route>
 
               {/* General Protected Route */}
