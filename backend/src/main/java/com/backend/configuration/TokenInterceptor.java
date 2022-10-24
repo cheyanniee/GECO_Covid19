@@ -35,6 +35,12 @@ public class TokenInterceptor implements HandlerInterceptor {
         if (currentURL.endsWith("people/login") || currentURL.endsWith("people/register")) {
             return true;
         }
+        if (currentURL.endsWith("clinic/listall")) {
+            return true;
+        }
+        if (currentURL.endsWith("affected/listall")) {
+            return true;
+        }
 
         String token = request.getHeader("token");
 //        String userId = request.getHeader("userId");
