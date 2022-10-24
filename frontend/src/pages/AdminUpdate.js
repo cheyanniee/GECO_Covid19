@@ -3,17 +3,19 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import { useFormik } from "formik";
 import { INITIAL_UPDATE_AREAS_VALUES, updateAreasSchema } from "../schemas";
-import axios, { AFFECTED_AREAS_ENDPOINT, UPDATE_AREAS_ENDPOINT } from "../api/axios";
+import axios, { AFFECTED_AREAS_ENDPOINT, UPDATE_AREAS_ENDPOINT, config } from "../api/axios";
+import useAuth from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
 
 const AdminUpdate = () => {
   const [errMsg, setErrMsg] = useState("");
   const navigate = useNavigate();
+  const { auth } = useAuth();
 
   const [affected, setAffected] = useState([]);
   const [areas, setAreas] = useState([]);
-  const [postalCode, setPostalCode] = useState("");
+  const [postals, setPostals] = useState([]);
   const [areaID, setAreaID] = useState("");
 
   useEffect(() => {
@@ -43,10 +45,14 @@ const AdminUpdate = () => {
   }
 
   const getPostalCode = (e) => {
+    console.log(e.target.value, values.regionName);
+
     for (let i=0; i<affected.length; i++) {
-        if ((affected[i].regionName == values.regionName) && (affected[i].areaName == values.areaName)) {
-            setAreaID(affected[i].id);
-            setPostalCode(affected[i].postcode);
+        if ((affected[i].regionName == values.regionName) && (affected[i].areaName == e.target.value)) {
+            values.id = affected[i].id;
+            setPostals([affected[i].postcode]);
+            console.log(affected[i]);
+            console.log(postals);
             break;
         }
     }
@@ -54,14 +60,9 @@ const AdminUpdate = () => {
 
   const onSubmit = async (values, actions) => {
     values = { ...values };
-
-    const params = {
-        "id": areaID,
-        "caseCount": values.caseCount
-    };
     console.log("params: ", values);
     try {
-      const response = await axios.post(UPDATE_AREAS_ENDPOINT, values);
+      const response = await axios.post(UPDATE_AREAS_ENDPOINT, values, config({ token: auth.token }));
       console.log(response.data);
       actions.resetForm();
       navigate("/", {
@@ -87,7 +88,6 @@ const AdminUpdate = () => {
     onSubmit,
   });
   useEffect(() => {
-    inputRef.current.focus();
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, []);
 
@@ -201,27 +201,28 @@ const AdminUpdate = () => {
               {/* End Input areaName */}
               <div className="col-lg-4 mb-4">
                 <div className="form-floating">
-                  <input
-                    type="text"
+                  <select
                     className={
                       errors.postcode && touched.postcode
                         ? "form-control form-control-lg-error light-300-error"
                         : "form-control form-control-lg light-300"
                     }
                     id="postcode"
-                    ref={inputRef}
-                    placeholder="Postal Code"
-                    value={postalCode}
-                    onChange={handleChange}
+                    placeholder="postcode"
+                    value={values.postcode}
+                    onChange= {handleChange}
                     onBlur={handleBlur}
-                  />
-                  <label htmlFor="firstName light-300">Postal Code</label>
+                  >
+                    <option value="" label="Select a Postal Code">Select a Postal Code{" "}</option>
+                    {postals.map((postal) => (<option value={postal} label={postal}>{postal}</option>))}
+                  </select>
+                  <label htmlFor="last-name light-300">postcode</label>
                   {errors.postcode && touched.postcode && (
                     <em className="text-error">{errors.postcode}</em>
                   )}
                 </div>
               </div>
-              {/* End Postal Code Label */}
+              {/* End Input postcode */}
               <div className="col-lg-4 mb-4">
                 <div className="form-floating">
                   <input

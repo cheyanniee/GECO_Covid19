@@ -16,6 +16,14 @@ export const INITIAL_FORM_VALUES = {
   postcode: "",
 };
 
+export const INITIAL_UPDATE_AREAS_VALUES = {
+  id: "",
+  caseCount: "",
+  postcode: "",
+  areaName: "",
+  regionName: "",
+};
+
 export const registerSchema = yup.object().shape({
   firstName: yup.string().required("Required"),
   lastName: yup.string().required("Required"),
@@ -49,6 +57,19 @@ export const registerSchema = yup.object().shape({
     .min(100000, "Postal code must be exactly 6 digits")
     .max(1000000, "Postal code must be at exactly 6 digits")
     .required("Please enter valid postal code"),
+});
+
+export const updateAreasSchema = yup.object().shape({
+  id: yup.number().positive().integer(),
+  caseCount: yup
+    .number()
+    .positive()
+    .integer()
+    .min(0, "Case count cannot be negative")
+    .required("Please enter valid case count"),
+  postcode: yup.string().required("Required"),
+  areaName: yup.string().required("Required"),
+  regionName: yup.string().required("Required"),
 });
 
 export const userDetailsSchema = yup.object().shape({
