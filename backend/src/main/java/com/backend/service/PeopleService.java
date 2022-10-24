@@ -31,12 +31,12 @@ public class PeopleService {
 
     public void createUser(PeopleRequest peopleRequest) throws Exception {
 
-        Optional<PeopleModel> emailExist = peopleRepo.getPeopleByEmail(peopleRequest.getEmail());
+        Optional<PeopleModel> emailExist = peopleRepo.getPeopleByEmail(peopleRequest.getEmail().toLowerCase());
         if (emailExist.isPresent()) {
             throw new Exception("Email already exists.");
         }
 
-        Optional<PeopleModel> officialIdExist = peopleRepo.getPeopleByOfficialId(peopleRequest.getOfficialId());
+        Optional<PeopleModel> officialIdExist = peopleRepo.getPeopleByOfficialId(peopleRequest.getOfficialId().toUpperCase());
         if(officialIdExist.isPresent()){
             throw new Exception("Official ID already exists.");
         }
@@ -44,13 +44,13 @@ public class PeopleService {
         PeopleModel peopleNew = PeopleModel.builder()
                 .lastName(peopleRequest.getLastName())
                 .firstName(peopleRequest.getFirstName())
-                .email(peopleRequest.getEmail())
+                .email(peopleRequest.getEmail().toLowerCase())
                 .password(peopleRequest.getPassword())
                 .address(peopleRequest.getAddress())
                 .postcode(peopleRequest.getPostcode())
                 .phone(peopleRequest.getPhone())
                 .dob(peopleRequest.getDob())
-                .officialId(peopleRequest.getOfficialId())
+                .officialId(peopleRequest.getOfficialId().toUpperCase())
                 .role(Objects.isNull(peopleRequest.getRole()) ? PeopleModel.Role.user : peopleRequest.getRole())
                 .build();
 
@@ -82,7 +82,7 @@ public class PeopleService {
     }
 
     public PeopleModel loginValidate(String email, String password) throws Exception {
-        Optional<PeopleModel> peopleOpt = peopleRepo.getPeopleByEmailAndPassword(email, password);
+        Optional<PeopleModel> peopleOpt = peopleRepo.getPeopleByEmailAndPassword(email.toLowerCase(), password);
         if (peopleOpt.isPresent()) {
             PeopleModel people = peopleOpt.get();
 //            String token = genTokenForEmail(email);
