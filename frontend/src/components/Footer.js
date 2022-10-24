@@ -9,8 +9,8 @@ const Footer = () => {
           <div className="col-lg-3 col-12 align-left">
             <Link className="navbar-brand" to="index.html">
               <i className="bx bx-buildings bx-sm text-light" />
-              <span className="text-light h5">Covid</span>{" "}
-              <span className="text-light h5 semi-bold-600">Safe</span>
+              <span className="text-light h5">GECO</span>{" "}
+              <span className="text-light h5 semi-bold-600">Buzz</span>
             </Link>
             <p className="text-light my-lg-4 my-2">
               Our company aims to help everyone stay as safe as possible through this tough pandemic.
@@ -137,7 +137,7 @@ const Footer = () => {
           <div className="row pt-2">
             <div className="col-lg-6 col-sm-12">
               <p className="text-lg-start text-center text-light light-300">
-                © Copyright 2022 Covid Safe Company. All Rights Reserved.
+                © Copyright 2022 GECO Buzz Company. All Rights Reserved.
               </p>
             </div>
             <div className="col-lg-6 col-sm-12">
