@@ -1,16 +1,15 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import axios, { config, PATIENTS_SEARCH_ENDPOINT } from "../api/axios";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import { useFormik } from "formik";
-import SearchUsers from "../components/SearchUsers";
-import { INITIAL_ADMIN_SEARCH_VALUES, adminSeachSchema } from "../schemas";
-import axios, { config, PATIENTS_SEARCH_ENDPOINT } from "../api/axios";
+import { ROLES } from "../helper/Constant";
 import useAuth from "../hooks/useAuth";
 
 const AdminSearch = () => {
   const { auth } = useAuth();
-  const [errMsg, setErrMsg] = useState("");
   const [data, setData] = useState([]);
+  const [apiSearch, setApiSearch] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,8 +18,10 @@ const AdminSearch = () => {
           PATIENTS_SEARCH_ENDPOINT,
           config({ token: auth.token })
         );
-        console.log("data", response?.data);
-        setData(response?.data);
+        setData(
+          response?.data?.filter((patient) => patient.role === ROLES.User)
+        );
+        setApiSearch(response?.data);
       } catch (error) {
         console.log(error);
       }
@@ -28,91 +29,114 @@ const AdminSearch = () => {
     fetchData();
   }, [auth.token]);
 
-  const tester = (e) => {
-    console.log("tester");
-    e.preventDefault();
-  }
-
-  const onSubmit = async (values, actions) => {
-    console.log("submit");
+  const handleFilter = (e) => {
+    const inputText = e.target.value;
+    const filterResult = apiSearch.filter((item) => {
+      return item.officialId
+        ? item.officialId.toLowerCase().includes(inputText.toLowerCase()) &&
+            item.role.includes(ROLES.User)
+        : false;
+    });
+    filterResult.length > 0
+      ? setData(filterResult)
+      : setData([{ officialId: "No result for " + inputText }]);
   };
-
-  const inputRef = useRef();
-  const {
-    values,
-    errors,
-    touched,
-    isSubmitting,
-    handleChange,
-    handleBlur,
-    handleSubmit,
-  } = useFormik({
-    initialValues: INITIAL_ADMIN_SEARCH_VALUES,
-    validationSchema: adminSeachSchema,
-    onSubmit,
-  });
-
-  useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-  }, []);
 
   return (
     <>
       <Header />
-      <section className="container py-5">
-        <h1 className="col-12 col-xl-8 h2 text-left text-primary pt-3">
-          Search Users
-        </h1>
-        <h2 className="col-12 col-xl-8 h4 text-left regular-400">
-          For Government Officials Only
-        </h2>
-
-        <div className="row pb-4">
-          <div className="col-lg-4">
-            <div className="contact row mb-4">
-              <form className="contact-form row"
-                    onSubmit={handleSubmit}>
-                <div className="mb-4">
-                  <div className="form-floating">
-                    <input
-                      type="text"
-                      className={
-                        errors.id && touched.id
-                          ? "form-control form-control-lg-error light-300-error"
-                          : "form-control form-control-lg light-300"
-                      }
-                      id="id"
-                      placeholder="id"
-                      value={values.id}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                    />
-                    <label htmlFor="password light-300">id</label>
-                    {errors.id && touched.id && (
-                      <em className="text-error">{errors.id}</em>
-                    )}
+      <section className="container-lg py-5">
+        <div className="row">
+          <div className="worksingle-content col-lg-10 m-auto text-left justify-content-center">
+            <h2 className="worksingle-heading h3 pb-5 light-300 typo-space-line">
+              Search Public Database
+            </h2>
+          </div>
+        </div>
+        <div className="row mb-4">
+          <div className="worksingle-content col-lg-10 m-auto text-left justify-content-center">
+            <form className="contact-form row">
+              <div className="col-lg-4">
+                <div className="form-floating">
+                  <input
+                    type="text"
+                    className="form-control form-control-lg light-300"
+                    id="officialId"
+                    onChange={handleFilter}
+                  />
+                  <label htmlFor="officialId light-300">
+                    Patient's NRIC/FIN/Passport
+                  </label>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div className="row align-items-start ">
+          <div className=" col-lg-10 m-auto text-left justify-content-center">
+            <div className="row align-items-start text-primary fs-4 mb-3">
+              <div className="col-2">Official ID</div>
+              <div className="col-2">Full Name</div>
+              <div className="col-2">Date of Birth</div>
+              <div className="col-2">Mobile</div>
+              <div className="col-3">Email</div>
+            </div>
+            {data.map((patient) => {
+              const { id, firstName, lastName, officialId, email, dob, phone } = patient;
+              return (
+                <div key={id} className="row align-items-start mb-2">
+                  <div className="col-2">{officialId}</div>
+                  <div className="col-2">
+                    {firstName} {lastName}
                   </div>
+                  <div className="col-2">{dob}</div>
+                  <div className="col-2">{phone}</div>
+                  <div className="col-3">{email}</div>
                 </div>
-                <em className="text-error px-3">{errMsg}</em>
-                <div>
-                  <button
-                    onClick={(e) => tester(e)}
-                    className="btn btn-secondary rounded-pill px-md-5 px-4 py-2 radius-0 text-light light-300"
-                  >
-                    View All
-                  </button>
-                  <button
-                    disabled={isSubmitting}
-                    type="submit"
-                    className="btn btn-secondary rounded-pill px-md-5 px-4 py-2 radius-0 text-light light-300"
-                  >
-                    Search
-                  </button>
-                </div>
-              </form>
+              );
+            })}
+          </div>
+        </div>
+        {/* Start of Pagination */}
+        <div className="row">
+          <div
+            className="btn-toolbar justify-content-center pb-4"
+            role="toolbar"
+            aria-label="Toolbar with button groups"
+          >
+            <div
+              className="btn-group me-2"
+              role="group"
+              aria-label="First group"
+            >
+              <button type="button" className="btn btn-secondary text-white">
+                Previous
+              </button>
+            </div>
+            <div
+              className="btn-group me-2"
+              role="group"
+              aria-label="Second group"
+            >
+              <button type="button" className="btn btn-light">
+                1
+              </button>
+            </div>
+            <div
+              className="btn-group me-2"
+              role="group"
+              aria-label="Second group"
+            >
+              <button type="button" className="btn btn-secondary text-white">
+                2
+              </button>
+            </div>
+            <div className="btn-group" role="group" aria-label="Third group">
+              <button type="button" className="btn btn-secondary text-white">
+                Next
+              </button>
             </div>
           </div>
-
         </div>
       </section>
       <Footer />
