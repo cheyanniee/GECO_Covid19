@@ -72,7 +72,7 @@ const UserDetails = () => {
           Your Profile Page
         </h1>
         <h2 className="col-12 col-xl-8 h4 text-left regular-400">
-          For General Public
+          {/* For General Public */}
         </h2>
         <p className="col-12 col-xl-8 text-left text-muted pb-5 light-300">
           Kindly fill in all required fields

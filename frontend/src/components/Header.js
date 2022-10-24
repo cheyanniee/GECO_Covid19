@@ -64,9 +64,21 @@ const Header = () => {
                 <li className="nav-item">
                   <Link
                     className="nav-link btn-outline-primary rounded-pill px-3"
+                    to="/userVaccination"
+                  >
+                    Vaccination
+                  </Link>
+                </li>
+              ) : (
+                ""
+              )}
+              {auth?.role === ROLES.User ? (
+                <li className="nav-item">
+                  <Link
+                    className="nav-link btn-outline-primary rounded-pill px-3"
                     to="/userCovidStatus"
                   >
-                    COVID status
+                    COVID-19 Test
                   </Link>
                 </li>
               ) : (
@@ -78,7 +90,7 @@ const Header = () => {
                     className="nav-link btn-outline-primary rounded-pill px-3"
                     to="/doctorSearch"
                   >
-                    Vacination
+                    Vaccination
                   </Link>
                 </li>
               ) : (
@@ -88,7 +100,7 @@ const Header = () => {
                 <li className="nav-item">
                   <Link
                     className="nav-link btn-outline-primary rounded-pill px-3"
-                    to="/doctorSearch"
+                    to="/doctorTest"
                   >
                     COVID-19 Test
                   </Link>
