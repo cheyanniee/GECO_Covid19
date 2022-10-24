@@ -7,6 +7,8 @@ export const LOGOUT_ENDPOINT = "/people/logout";
 export const USERDETAILS_UPDATE_ENDPOINT = "/people/update";
 export const REFRESHTOKEN_ENDPOINT = "/people/getinfo";
 export const PATIENTS_SEARCH_ENDPOINT = "/people/listall";
+export const AFFECTED_AREAS_ENDPOINT = "/affected/listall";
+export const CLINICS_ENDPOINT = "/clinic/listall";
 
 export const config = ({ token }) => {
   return {
