@@ -21,6 +21,7 @@ import UserCovidStatus from "./pages/UserCovidStatus";
 import DoctorSearch from "./pages/DoctorSearch";
 import AdminSearch from "./pages/AdminSearch";
 import AdminUpdate from "./pages/AdminUpdate";
+import DoctorTest from "./pages/DoctorTest";
 
 function App() {
   return (
@@ -54,6 +55,7 @@ function App() {
               {/* Doctor Route */}
               <Route element={<RequireAuth allowedRoles={[ROLES.Doctor]} />}>
                 <Route path="/doctorSearch" element={<DoctorSearch />}></Route>
+                <Route path="/doctorTest" element={<DoctorTest />}></Route>
               </Route>
 
               {/* Admin Route */}
