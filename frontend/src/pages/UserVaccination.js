@@ -4,9 +4,8 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import useAuth from "../hooks/useAuth";
 import moment from "moment";
-import { TEST_RESULTS } from "../helper/Constant";
 
-const UserCovidStatus = () => {
+const UserVaccination = () => {
   const { auth } = useAuth();
   const [resultSet, setResultSet] = useState([]);
 
@@ -17,11 +16,11 @@ const UserCovidStatus = () => {
           USERCOVID_RESULT_ENDPOINT,
           config({ token: auth.token })
         );
-        console.log(result.data.testList);
-        result?.data?.testList.sort((a, b) => {
+        console.log(result.data);
+        result?.data?.vaccList.sort((a, b) => {
           return new Date(b.date) - new Date(a.date);
         });
-        setResultSet(result.data.testList);
+        setResultSet(result.data.vaccList);
       } catch (error) {
         console.log(error);
       }
@@ -36,7 +35,7 @@ const UserCovidStatus = () => {
         <div className="row pt-5">
           <div className="worksingle-content col-lg-10 m-auto text-left justify-content-center">
             <h2 className="worksingle-heading h3 pb-3 light-300 typo-space-line">
-              Your COVID Test status
+              Your Vaccination status
             </h2>
             <p className="worksingle-footer py-3 text-muted light-300">
               NRIC/FIN/PASSPORT: {auth.officialId} <br />
@@ -73,15 +72,7 @@ const UserCovidStatus = () => {
                       <div className="col-3 px-3">
                         {result.clinicModel.address}
                       </div>
-                      <div
-                        className={
-                          result.result === TEST_RESULTS.negative
-                            ? "col-1 px-5 text-success"
-                            : result.result === TEST_RESULTS.positive
-                            ? "col-1 px-5 text-danger"
-                            : "col-1 px-5"
-                        }
-                      >
+                      <div className="col-1 px-5 text-success">
                         {result.result}
                       </div>
                     </div>
@@ -90,7 +81,7 @@ const UserCovidStatus = () => {
               </>
             ) : (
               <div className="row align-items-start text-primary fs-5 mb-3">
-                <div className="col-3 px-3">No Test Results Found!</div>
+                <div className="col-8 px-3">You are not Vaccinated!</div>
               </div>
             )}
           </div>
@@ -110,4 +101,4 @@ const UserCovidStatus = () => {
   );
 };
 
-export default UserCovidStatus;
+export default UserVaccination;
