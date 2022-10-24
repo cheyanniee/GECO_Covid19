@@ -166,6 +166,7 @@ function AffectedTable(props) {
                     AFFECTED_AREAS_ENDPOINT
                 );
                 console.log("data", response?.data);
+                response?.data.sort((a,b) => (a.regionName > b.regionName) ? 1 : ((b.regionName > a.regionName) ? -1 : 0))
                 setAffected(response?.data);
             } catch (error) {
                 console.log(error);
