@@ -105,6 +105,7 @@ const AdminUpdate = () => {
         <p className="col-12 col-xl-8 text-left text-muted pb-5 light-300">
           Kindly fill in all required fields
         </p>
+
         <div className="row pb-4">
           <div className="col-lg-4">
             <div className="contact row mb-4">
@@ -144,6 +145,7 @@ const AdminUpdate = () => {
               </ul>
             </div>
           </div>
+
           {/* Start Update Details */}
           <div className="col-lg-8 ">
             <form className="contact-form row" onSubmit={handleSubmit}>
@@ -245,18 +247,18 @@ const AdminUpdate = () => {
                 </div>
               </div>
               {/* End Input caseCount */}
-              <div className="col-md-12 col-12 m-auto text-end">
-                <em className="text-error px-3">{errMsg}</em>
-                <button
-                  disabled={isSubmitting}
-                  type="submit"
-                  className="btn btn-secondary rounded-pill px-md-5 px-4 py-2 radius-0 text-light light-300"
-                >
-                  Update!
-                </button>
-              </div>
-            </form>
+          <div className="col-md-12 col-12 m-auto text-end">
+            <em className="text-error px-3">{errMsg}</em>
+            <button
+              disabled={isSubmitting}
+              type="submit"
+              className="btn btn-secondary rounded-pill px-md-5 px-4 py-2 radius-0 text-light light-300"
+            >
+              Update!
+            </button>
           </div>
+        </form>
+      </div>
           {/* End Update Details Form */}
         </div>
       </section>

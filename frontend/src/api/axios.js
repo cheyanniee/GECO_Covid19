@@ -13,6 +13,7 @@ export const CLINICS_ENDPOINT = "/clinic/listall";
 export const USERCOVID_RESULT_ENDPOINT = "/visit/result";
 export const DOCTOR_VISIT_ENDPOINT = "/visit/create";
 export const CLINIC_GET_ID_ENDPOINT = "/doctor/clinic";
+export const REGISTER_DOCTOR_ENDPOINT = "/doctor/register";
 
 export const config = ({ token }) => {
   return {
