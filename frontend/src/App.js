@@ -18,6 +18,9 @@ import MakeAppointment from "./pages/MakeAppointment";
 import { ROLES } from "./helper/Constant";
 import PersistLogin from "./components/PersistLogin";
 import UserCovidStatus from "./pages/UserCovidStatus";
+import DoctorSearch from "./pages/DoctorSearch";
+import AdminSearch from "./pages/AdminSearch";
+import AdminUpdate from "./pages/AdminUpdate";
 
 function App() {
   return (
@@ -32,7 +35,7 @@ function App() {
             <Route path="/pricing" element={<Pricing />}></Route>
             <Route path="/contact" element={<Contact />}></Route>
 
-            <Route path="/" element={<Home />}></Route>
+            <Route path="/login" element={<Login />}></Route>
             <Route path="/register" element={<Register />}></Route>
             <Route path="/clinics" element={<ClinicsPage />}></Route>
             <Route path="/unauthorized" element={<Unauthorized />}></Route>
@@ -40,13 +43,36 @@ function App() {
 
             {/* protected routes */}
             <Route element={<PersistLogin />}>
-              <Route path="/login" element={<Login />}></Route>
-              <Route element={<RequireAuth allowedRoles={ROLES.User} />}>
-                <Route path="/userDetails" element={<UserDetails />}></Route>
+              <Route path="/" element={<Home />}></Route>
+              {/* Normal Users Route */}
+              <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
                 <Route
                   path="/userCovidStatus"
                   element={<UserCovidStatus />}
                 ></Route>
+              </Route>
+              {/* Doctor Route */}
+              <Route element={<RequireAuth allowedRoles={[ROLES.Doctor]} />}>
+                <Route path="/doctorSearch" element={<DoctorSearch />}></Route>
+              </Route>
+
+              {/* Admin Route */}
+              <Route
+                element={<RequireAuth allowedRoles={[ROLES.Gov_Offical]} />}
+              >
+                <Route path="/adminUpdate" element={<AdminUpdate />}></Route>
+                <Route path="/adminSearch" element={<AdminSearch />}></Route>
+              </Route>
+
+              {/* General Protected Route */}
+              <Route
+                element={
+                  <RequireAuth
+                    allowedRoles={[ROLES.User, ROLES.Doctor, ROLES.Gov_Offical]}
+                  />
+                }
+              >
+                <Route path="/userDetails" element={<UserDetails />}></Route>
               </Route>
             </Route>
             {/* catch all */}

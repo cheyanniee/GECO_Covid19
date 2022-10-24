@@ -1,14 +1,18 @@
 import React from "react";
-import { Link, redirect } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { ROLES } from "../helper/Constant";
 import useAuth from "../hooks/useAuth";
 import useLogout from "../hooks/useLogout";
 
 const Header = () => {
   const { auth } = useAuth();
+  const navigate = useNavigate();
   const logout = useLogout();
   const signOut = async () => {
     await logout();
-    redirect("/");
+    navigate("/login", {
+      state: { message: "You have logged out successfully" },
+    });
   };
 
   return (
@@ -39,7 +43,7 @@ const Header = () => {
           id="navbar-toggler-success"
         >
           <div className="flex-fill mx-xl-5 mb-2">
-            <ul className="nav navbar-nav d-flex justify-content-between mx-xl-5 text-center text-dark">
+            <ul className="nav navbar-nav d-flex justify-content-evenly mx-xl-5 text-center text-dark">
               <li className="nav-item">
                 <Link
                   className="nav-link btn-outline-primary rounded-pill px-3"
@@ -48,14 +52,6 @@ const Header = () => {
                   Home
                 </Link>
               </li>
-              {/* <li className="nav-item">
-                <Link
-                  className="nav-link btn-outline-primary rounded-pill px-3"
-                  to="/about"
-                >
-                  About
-                </Link>
-              </li> */}
               <li className="nav-item">
                 <Link
                   className="nav-link btn-outline-primary rounded-pill px-3"
@@ -64,19 +60,73 @@ const Header = () => {
                   Clinics
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link
-                  className="nav-link btn-outline-primary rounded-pill px-3"
-                  to="/userCovidStatus"
-                >
-                  COVID status
-                </Link>
-              </li>
+              {auth?.role === ROLES.User ? (
+                <li className="nav-item">
+                  <Link
+                    className="nav-link btn-outline-primary rounded-pill px-3"
+                    to="/userCovidStatus"
+                  >
+                    COVID status
+                  </Link>
+                </li>
+              ) : (
+                ""
+              )}
+              {auth?.role === ROLES.Doctor ? (
+                <li className="nav-item">
+                  <Link
+                    className="nav-link btn-outline-primary rounded-pill px-3"
+                    to="/doctorSearch"
+                  >
+                    Vaccination
+                  </Link>
+                </li>
+              ) : (
+                ""
+              )}
+              {auth?.role === ROLES.Doctor ? (
+                <li className="nav-item">
+                  <Link
+                    className="nav-link btn-outline-primary rounded-pill px-3"
+                    to="/doctorSearch"
+                  >
+                    COVID-19 Test
+                  </Link>
+                </li>
+              ) : (
+                ""
+              )}
+              {auth?.role === ROLES.Gov_Offical ? (
+                <li className="nav-item">
+                  <Link
+                    className="nav-link btn-outline-primary rounded-pill px-3"
+                    to="/adminSearch"
+                  >
+                    Search All Users
+                  </Link>
+                </li>
+              ) : (
+                ""
+              )}
+              {auth?.role === ROLES.Gov_Offical ? (
+                <li className="nav-item">
+                  <Link
+                    className="nav-link btn-outline-primary rounded-pill px-3"
+                    to="/adminUpdate"
+                  >
+                    Update Infected Areas
+                  </Link>
+                </li>
+              ) : (
+                ""
+              )}
             </ul>
           </div>
           {auth?.token ? (
             <>
-              <div className="mx-1 mb-2"></div>
+              <div className="mx-1 mb-2">
+                <Link to="/userDetails">{auth?.firstName}</Link>
+              </div>
               <div className="navbar align-self-center d-flex">
                 {/* <Link className="nav-link" to="">
               <i className="bx bx-bell bx-sm bx-tada-hover text-primary"></i>
