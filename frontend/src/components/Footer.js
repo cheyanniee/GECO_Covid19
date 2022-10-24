@@ -15,53 +15,6 @@ const Footer = () => {
             <p className="text-light my-lg-4 my-2">
               Our company aims to help everyone stay as safe as possible through this tough pandemic.
             </p>
-            <ul className="list-inline footer-icons light-300">
-              <li className="list-inline-item m-0">
-                <Link
-                  className="text-light"
-                  target="_blank"
-                  to="http://facebook.com/"
-                >
-                  <i className="bx bxl-facebook-square bx-md" />
-                </Link>
-              </li>
-              <li className="list-inline-item m-0">
-                <Link
-                  className="text-light"
-                  target="_blank"
-                  to="https://www.linkedin.com/"
-                >
-                  <i className="bx bxl-linkedin-square bx-md" />
-                </Link>
-              </li>
-              <li className="list-inline-item m-0">
-                <Link
-                  className="text-light"
-                  target="_blank"
-                  to="https://www.whatsapp.com/"
-                >
-                  <i className="bx bxl-whatsapp-square bx-md" />
-                </Link>
-              </li>
-              <li className="list-inline-item m-0">
-                <Link
-                  className="text-light"
-                  target="_blank"
-                  to="https://www.flickr.com/"
-                >
-                  <i className="bx bxl-flickr-square bx-md" />
-                </Link>
-              </li>
-              <li className="list-inline-item m-0">
-                <Link
-                  className="text-light"
-                  target="_blank"
-                  to="https://www.medium.com/"
-                >
-                  <i className="bx bxl-medium-square bx-md" />
-                </Link>
-              </li>
-            </ul>
           </div>
           <div className="col-lg-3 col-md-4 my-sm-0 mt-4">
               <h3 className="h4 pb-lg-3 text-light light-300">Our Company</h3>
