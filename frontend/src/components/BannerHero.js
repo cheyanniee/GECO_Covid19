@@ -1,153 +1,208 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { React, useEffect, useState } from "react";
+
+import { GoogleMap, useLoadScript, Circle } from '@react-google-maps/api';
+import { Table } from '@table-library/react-table-library/table';
+
+import axios, { AFFECTED_AREAS_ENDPOINT } from "../api/axios";
 
 const BannerHero = () => {
-  return (
-    <div className="banner-wrapper bg-light">
-      <div
-        id="index_banner"
-        className="banner-vertical-center-index container-fluid pt-5"
-      >
-        <div
-          id="carouselExampleIndicators"
-          className="carousel slide"
-          data-bs-ride="carousel"
-        >
-          <ol className="carousel-indicators">
-            <li
-              data-bs-target="#carouselExampleIndicators"
-              data-bs-slide-to="0"
-              className="active"
-            ></li>
-            <li
-              data-bs-target="#carouselExampleIndicators"
-              data-bs-slide-to="1"
-            ></li>
-            <li
-              data-bs-target="#carouselExampleIndicators"
-              data-bs-slide-to="2"
-            ></li>
-          </ol>
-          <div className="carousel-inner">
-            <div className="carousel-item active">
-              <div className="py-5 row d-flex align-items-center">
-                <div className="banner-content col-lg-8 col-8 offset-2 m-lg-auto text-left py-5 pb-5">
-                  <h1 className="banner-heading h1 text-secondary display-3 mb-0 pb-5 mx-0 px-0 light-300 typo-space-line">
-                    Develop <strong>Strategies</strong> for
-                    <br />
-                    your business
-                  </h1>
-                  <p className="banner-body text-muted py-3 mx-0 px-0">
-                    Purple Buzz is a corporate HTML template with Bootstrap 5
-                    Beta 1. This CSS template is 100% free to download provided
-                    by{" "}
-                    <Link
-                      rel="nofollow"
-                      to="https://templatemo.com/page/1"
-                      target="_parent"
+    return (
+        <div className="banner-wrapper bg-light">
+            <div
+            id="index_banner"
+            className="banner-vertical-center-index container-fluid pt-5"
+            >
+                <div
+                id="carouselExampleIndicators"
+                className="carousel slide"
+                data-bs-ride="carousel"
+                >
+                    <div className="carousel-inner">
+                        <div className="carousel-item active">
+                            <div className="py-5 row d-flex align-items-center">
+                                <div className="banner-content col-lg-8 col-8 offset-2 m-lg-auto text-left py-5 pb-5">
+                                    <h1 className="banner-heading h1 text-secondary display-3 mb-0 pb-5 mx-0 px-0 light-300 typo-space-line">
+                                        List of Affected Areas
+                                    </h1>
+                                    <AffectedTable />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="carousel-item">
+                            <div className="py-5 row d-flex align-items-center">
+                                <div className="banner-content col-lg-8 col-8 offset-2 m-lg-auto text-left py-5 pb-5">
+                                    <h1 className="banner-heading h1 text-secondary display-3 mb-0 pb-5 mx-0 px-0 light-300 typo-space-line">
+                                        Map of Affected Areas
+                                    </h1>
+                                    <Map />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a
+                        className="carousel-control-prev text-decoration-none"
+                        href="#carouselExampleIndicators"
+                        role="button"
+                        data-bs-slide="prev"
                     >
-                      TemplateMo
-                    </Link>
-                    . Total 6 HTML pages included in this template. Icon fonts
-                    by{" "}
-                    <Link
-                      rel="nofollow"
-                      to="https://boxicons.com/"
-                      target="_blank"
+                        <i className="bx bx-chevron-left"></i>
+                        <span className="visually-hidden">Previous</span>
+                    </a>
+                    <a
+                        className="carousel-control-next text-decoration-none"
+                        href="#carouselExampleIndicators"
+                        role="button"
+                        data-bs-slide="next"
                     >
-                      Boxicons
-                    </Link>
-                    . Photos are from{" "}
-                    <Link
-                      rel="nofollow"
-                      to="https://unsplash.com/"
-                      target="_blank"
-                    >
-                      Unsplash
-                    </Link>{" "}
-                    and{" "}
-                    <Link to="https://icons8.com/" target="_blank">
-                      Icons 8
-                    </Link>
-                    .
-                  </p>
-                  <Link
-                    className="banner-button btn rounded-pill btn-outline-primary btn-lg px-4"
-                    to="#"
-                    role="button"
-                  >
-                    Get Started
-                  </Link>
+                        <i className="bx bx-chevron-right"></i>
+                        <span className="visually-hidden">Next</span>
+                    </a>
                 </div>
-              </div>
             </div>
-            <div className="carousel-item">
-              <div className="py-5 row d-flex align-items-center">
-                <div className="banner-content col-lg-8 col-8 offset-2 m-lg-auto text-left py-5 pb-5">
-                  <h1 className="banner-heading h1 text-secondary display-3 mb-0 pb-3 mx-0 px-0 light-300">
-                    HTML CSS Template with Bootstrap 5 Beta 1
-                  </h1>
-                  <p className="banner-body text-muted py-3">
-                    You are not allowed to re-distribute this Purple Buzz HTML
-                    template as a downloadable ZIP file on any kind of Free CSS
-                    collection websites. This is strongly prohibited. Please
-                    contact TemplateMo for more information.
-                  </p>
-                  <Link
-                    className="banner-button btn rounded-pill btn-outline-primary btn-lg px-4"
-                    to="#"
-                    role="button"
-                  >
-                    Get Started
-                  </Link>
-                </div>
-              </div>
-            </div>
-            <div className="carousel-item">
-              <div className="py-5 row d-flex align-items-center">
-                <div className="banner-content col-lg-8 col-8 offset-2 m-lg-auto text-left py-5 pb-5">
-                  <h1 className="banner-heading h1 text-secondary display-3 mb-0 pb-3 mx-0 px-0 light-300">
-                    Cupidatat non proident, sunt in culpa qui officia
-                  </h1>
-                  <p className="banner-body text-muted py-3">
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                    laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                    irure dolor in reprehenderit in voluptate velit esse cillum
-                    dolore eu fugiat nulla pariatur. Excepteur sint occaecat.
-                  </p>
-                  <Link
-                    className="banner-button btn rounded-pill btn-outline-primary btn-lg px-4"
-                    to="#"
-                    role="button"
-                  >
-                    Get Started
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-          <a
-            className="carousel-control-prev text-decoration-none"
-            href="#carouselExampleIndicators"
-            role="button"
-            data-bs-slide="prev"
-          >
-            <i className="bx bx-chevron-left"></i>
-            <span className="visually-hidden">Previous</span>
-          </a>
-          <a
-            className="carousel-control-next text-decoration-none"
-            href="#carouselExampleIndicators"
-            role="button"
-            data-bs-slide="next"
-          >
-            <i className="bx bx-chevron-right"></i>
-            <span className="visually-hidden">Next</span>
-          </a>
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default BannerHero;
+
+function Map() {
+
+    useLoadScript({
+        googleMapsApiKey: process.env.REACT_APP_GOOGLEMAPS_APIKEY,
+    })
+
+    const default_center = {lat: 1.35945, lng: 103.8239};
+    const default_zoom = 11;
+    const radius = 5000;
+
+    const options = {
+        fillColor: "#FF0000",
+        strokeColor: "#FF0000",
+        strokeOpacity: 0.8,
+        strokeWeight: 0.1,
+        fillOpacity: 0.35,
+        clickable: false,
+        draggable: false,
+        editable: false,
+        visible: true,
+        zIndex: 1
+    };
+
+    const central = {
+        regionName: "central",
+        center: {lat: 1.3551, lng: 103.8628}
+    };
+    const north = {
+        regionName: "north",
+        center: {lat: 1.4206, lng: 103.7756}
+    };
+    const south = {
+        regionName: "south",
+        center: {lat: 1.2950, lng: 103.7961}
+    };
+    const east = {
+        regionName: "east",
+        center: {lat: 1.3533, lng: 103.9653}
+    };
+    const west = {
+        regionName: "west",
+        center: {lat: 1.3556, lng: 103.7086}
+    };
+
+    const [affected, setAffected] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(
+                    AFFECTED_AREAS_ENDPOINT
+                );
+                console.log("data", response?.data);
+                setAffected(response?.data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchData();
+    }, []);
+
+    var places = [];
+
+    for (let i=0; i<affected.length; i++) {
+        let area = affected[i];
+        if ((area.regionName.toLowerCase() === "north") && (places.indexOf(north) === -1)) {
+            places.push(north);
+        } else if ((area.regionName.toLowerCase() === "south") && (places.indexOf(south) === -1)) {
+            places.push(south);
+        } else if ((area.regionName.toLowerCase() === "east") && (places.indexOf(east) === -1)) {
+            places.push(east);
+        } else if ((area.regionName.toLowerCase() === "west") && (places.indexOf(west) === -1)) {
+            places.push(west);
+        } else if ((area.regionName.toLowerCase() === "central") && (places.indexOf(central) === -1)) {
+            places.push(central);
+        }
+    };
+
+//    console.log(places);
+
+    return (
+        <GoogleMap zoom={default_zoom} center={default_center} mapContainerClassName="map-container">
+            <div>
+                {places.map((data) => (<Circle center={data.center} radius={radius} options={options} />))}
+            </ div>
+        </GoogleMap>
+    );
+}
+
+function AffectedTable(props) {
+    const heading = ["Region", "Area", "Postal Code", "Case Count"];
+
+    const [affected, setAffected] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(
+                    AFFECTED_AREAS_ENDPOINT
+                );
+                console.log("data", response?.data);
+                setAffected(response?.data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchData();
+    }, []);
+
+    return (
+        <div className="table-container">
+            <table className="table-affected">
+                <thead>
+                    <tr>
+                        {heading.map((head) => (
+                            <th>{head}</th>
+                        ))}
+                    </tr>
+                </thead>
+                <tbody>
+                    {affected.map((row) => (
+                        <tr>
+                            <td>
+                                {row.regionName}
+                            </td>
+                            <td>
+                                {row.areaName}
+                            </td>
+                            <td>
+                                {row.postcode}
+                            </td>
+                            <td>
+                                {row.caseCount}
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    );
+}

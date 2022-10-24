@@ -9,12 +9,11 @@ const Footer = () => {
           <div className="col-lg-3 col-12 align-left">
             <Link className="navbar-brand" to="index.html">
               <i className="bx bx-buildings bx-sm text-light" />
-              <span className="text-light h5">Purple</span>{" "}
-              <span className="text-light h5 semi-bold-600">Buzz</span>
+              <span className="text-light h5">Covid</span>{" "}
+              <span className="text-light h5 semi-bold-600">Safe</span>
             </Link>
             <p className="text-light my-lg-4 my-2">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-              eiusmod tempor incididunt ut.
+              Our company aims to help everyone stay as safe as possible through this tough pandemic.
             </p>
             <ul className="list-inline footer-icons light-300">
               <li className="list-inline-item m-0">
@@ -65,100 +64,36 @@ const Footer = () => {
             </ul>
           </div>
           <div className="col-lg-3 col-md-4 my-sm-0 mt-4">
-            <h3 className="h4 pb-lg-3 text-light light-300">Our Company</h3>
-            <ul className="list-unstyled text-light light-300">
-              <li className="pb-2">
-                <i className="bx-fw bx bxs-chevron-right bx-xs" />
-                <Link className="text-decoration-none text-light" to="/">
-                  Home
-                </Link>
-              </li>
-              <li className="pb-2">
-                <i className="bx-fw bx bxs-chevron-right bx-xs" />
-                <Link
-                  className="text-decoration-none text-light py-1"
-                  to="/about"
-                >
-                  About Us
-                </Link>
-              </li>
-              <li className="pb-2">
-                <i className="bx-fw bx bxs-chevron-right bx-xs" />
-                <Link
-                  className="text-decoration-none text-light py-1"
-                  to="/work"
-                >
-                  Work
-                </Link>
-              </li>
-              <li className="pb-2">
-                <i className="bx-fw bx bxs-chevron-right bx-xs" />
-                <Link
-                  className="text-decoration-none text-light py-1"
-                  to="/pricing"
-                >
-                  Price
-                </Link>
-              </li>
-              <li className="pb-2">
-                <i className="bx-fw bx bxs-chevron-right bx-xs" />
-                <Link
-                  className="text-decoration-none text-light py-1"
-                  to="/contact"
-                >
-                  Contact
-                </Link>
-              </li>
-            </ul>
-          </div>
+              <h3 className="h4 pb-lg-3 text-light light-300">Our Company</h3>
+              <ul className="list-unstyled text-light light-300">
+                <li className="pb-2">
+                  <i className="bx-fw bx bxs-chevron-right bx-xs" />
+                  <Link className="text-decoration-none text-light" to="/">
+                    Home
+                  </Link>
+                </li>
+                <li className="pb-2">
+                  <i className="bx-fw bx bxs-chevron-right bx-xs" />
+                  <Link
+                    className="text-decoration-none text-light py-1"
+                    to="/clinics"
+                  >
+                    Clinics
+                  </Link>
+                </li>
+
+              </ul>
+            </div>
           <div className="col-lg-3 col-md-4 my-sm-0 mt-4">
-            <h2 className="h4 pb-lg-3 text-light light-300">Our Works</h2>
+            <h2 className="h4 pb-lg-3 text-light light-300">Frontend Team</h2>
             <ul className="list-unstyled text-light light-300">
               <li className="pb-2">
-                <i className="bx-fw bx bxs-chevron-right bx-xs" />
-                <Link className="text-decoration-none text-light py-1" to="#">
-                  Branding
-                </Link>
-              </li>
-              <li className="pb-2">
-                <i className="bx-fw bx bxs-chevron-right bx-xs" />
-                <Link className="text-decoration-none text-light py-1" to="#">
-                  Business
-                </Link>
-              </li>
-              <li className="pb-2">
-                <i className="bx-fw bx bxs-chevron-right bx-xs" />
-                <Link className="text-decoration-none text-light py-1" to="#">
-                  Marketing
-                </Link>
-              </li>
-              <li className="pb-2">
-                <i className="bx-fw bx bxs-chevron-right bx-xs" />
-                <Link className="text-decoration-none text-light py-1" to="#">
-                  Social Media
-                </Link>
-              </li>
-              <li className="pb-2">
-                <i className="bx-fw bx bxs-chevron-right bx-xs" />
-                <Link className="text-decoration-none text-light py-1" to="#">
-                  Digital Solution
-                </Link>
-              </li>
-              <li className="pb-2">
-                <i className="bx-fw bx bxs-chevron-right bx-xs" />
-                <Link className="text-decoration-none text-light py-1" to="#">
-                  Graphic
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div className="col-lg-3 col-md-4 my-sm-0 mt-4">
-            <h2 className="h4 pb-lg-3 text-light light-300">For Client</h2>
-            <ul className="list-unstyled text-light light-300">
-              <li className="pb-2">
-                <i className="bx-fw bx bx-phone bx-xs" />
-                <Link className="text-decoration-none text-light py-1" to="">
-                  010-020-0340
+                <i className="bx-fw bx bx-mail-send bx-xs" />
+                <Link
+                  className="text-decoration-none text-light py-1"
+                  to="mailto:info@company.com"
+                >
+                  cheyanne.lim@geco.asia
                 </Link>
               </li>
               <li className="pb-2">
@@ -167,11 +102,34 @@ const Footer = () => {
                   className="text-decoration-none text-light py-1"
                   to="mailto:info@company.com"
                 >
-                  info@company.com
+                  alex.lim@geco.asia
                 </Link>
               </li>
             </ul>
           </div>
+          <div className="col-lg-3 col-md-4 my-sm-0 mt-4">
+              <h2 className="h4 pb-lg-3 text-light light-300">Backend Team</h2>
+              <ul className="list-unstyled text-light light-300">
+                <li className="pb-2">
+                  <i className="bx-fw bx bx-mail-send bx-xs" />
+                  <Link
+                    className="text-decoration-none text-light py-1"
+                    to="mailto:info@company.com"
+                  >
+                    liu.fang@geco.asia
+                  </Link>
+                </li>
+                <li className="pb-2">
+                  <i className="bx-fw bx bx-mail-send bx-xs" />
+                  <Link
+                    className="text-decoration-none text-light py-1"
+                    to="mailto:info@company.com"
+                  >
+                    xuhong.lew@geco.asia
+                  </Link>
+                </li>
+              </ul>
+            </div>
         </div>
       </div>
       <div className="w-100 bg-primary py-3">
@@ -179,20 +137,12 @@ const Footer = () => {
           <div className="row pt-2">
             <div className="col-lg-6 col-sm-12">
               <p className="text-lg-start text-center text-light light-300">
-                © Copyright 2021 Purple Buzz Company. All Rights Reserved.
+                © Copyright 2022 Covid Safe Company. All Rights Reserved.
               </p>
             </div>
             <div className="col-lg-6 col-sm-12">
               <p className="text-lg-end text-center text-light light-300">
-                Designed by{" "}
-                <Link
-                  rel="sponsored"
-                  className="text-decoration-none text-light"
-                  to="https://templatemo.com/"
-                  target="_blank"
-                >
-                  <strong>TemplateMo</strong>
-                </Link>
+                Cheyanne, Alex, Liu Fang, Xu Hong
               </p>
             </div>
           </div>
