@@ -7,7 +7,7 @@ import axios, { REGISTER_ENDPOINT } from "../api/axios";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
 
-const Register = async() => {
+const Register = () => {
   const [errMsg, setErrMsg] = useState("");
   const navigate = useNavigate();
   const onSubmit = async (values, actions) => {
