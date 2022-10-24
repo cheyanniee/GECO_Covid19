@@ -1,15 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import axios, { config, PATIENTS_SEARCH_ENDPOINT } from "../api/axios";
+import axios, {
+  CLINIC_GET_ID_ENDPOINT,
+  config,
+  DOCTOR_VISIT_ENDPOINT,
+  PATIENTS_SEARCH_ENDPOINT,
+} from "../api/axios";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import { ROLES, VACCINE_DOSE } from "../helper/Constant";
 import useAuth from "../hooks/useAuth";
+import moment from "moment";
 
 const DoctorSearch = () => {
   const { auth } = useAuth();
   const [data, setData] = useState([]);
   const [apiSearch, setApiSearch] = useState([]);
+  const [clinic, setClinic] = useState(0);
+  const [vaccDate, setVaccDate] = useState();
+  const [vaccResult, setVaccResult] = useState();
+  const [message, setMessage] = useState();
+  const [errMsg, setErrMsg] = useState();
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -25,10 +37,25 @@ const DoctorSearch = () => {
         console.log(error);
       }
     };
+    const fetchClinicId = async () => {
+      try {
+        const response = await axios.get(
+          CLINIC_GET_ID_ENDPOINT,
+          config({ token: auth.token })
+        );
+        console.log(response?.data?.clinicModel);
+        setClinic(response?.data?.clinicModel);
+      } catch (error) {
+        console.log(error);
+      }
+    };
     fetchData();
+    fetchClinicId();
   }, [auth.token]);
 
   const handleFilter = (e) => {
+    setMessage("");
+    setErrMsg("");
     const inputText = e.target.value;
     const filterResult = apiSearch.filter((item) => {
       return item.officialId
@@ -39,6 +66,32 @@ const DoctorSearch = () => {
     filterResult.length > 0
       ? setData(filterResult)
       : setData([{ officialId: "No result for " + inputText }]);
+  };
+  const handleUpdate = async (id) => {
+    const result = vaccResult;
+    let date = vaccDate;
+
+    if (!date || !result) return;
+    date = moment(date).format("DD-MM-YYYY");
+    try {
+      const params = {
+        peopleId: id,
+        clinicId: clinic?.id,
+        date,
+        result,
+        operation: "vacc",
+      };
+      const response = await axios.post(
+        DOCTOR_VISIT_ENDPOINT,
+        params,
+        config({ token: auth?.token })
+      );
+      console.log(response.data.message);
+      setMessage("Update Success!");
+    } catch (error) {
+      console.log(error);
+      setErrMsg(error?.data);
+    }
   };
 
   return (
@@ -66,6 +119,8 @@ const DoctorSearch = () => {
                   <label htmlFor="officialId light-300">
                     Patient's NRIC/FIN/Passport
                   </label>
+                  {message && <em className="text-success px-2">{message}</em>}
+                  {errMsg && <em className="text-danger px-2">{errMsg}</em>}
                 </div>
               </div>
             </form>
@@ -94,12 +149,16 @@ const DoctorSearch = () => {
                         type="date"
                         className="form-control light-300"
                         id="vacDate"
+                        onChange={(e) => setVaccDate(e.target.value)}
                       />
                     )}
                   </div>
                   <div className="col-2">
                     {firstName && (
-                      <select className="form-select">
+                      <select
+                        className="form-select"
+                        onChange={(e) => setVaccResult(e.target.value)}
+                      >
                         <option>Select Dose</option>
                         {VACCINE_DOSE.map((dose) => (
                           <option key={dose}>{dose}</option>
@@ -110,54 +169,16 @@ const DoctorSearch = () => {
                   <div className="col-2">
                     {firstName && (
                       <Link>
-                        <i className="bx bx-pencil bx-sm" />
+                        <i
+                          className="bx bx-pencil bx-sm"
+                          onClick={() => handleUpdate(id)}
+                        />
                       </Link>
                     )}
                   </div>
                 </div>
               );
             })}
-          </div>
-        </div>
-        {/* Start of Pagination */}
-        <div className="row">
-          <div
-            className="btn-toolbar justify-content-center pb-4"
-            role="toolbar"
-            aria-label="Toolbar with button groups"
-          >
-            <div
-              className="btn-group me-2"
-              role="group"
-              aria-label="First group"
-            >
-              <button type="button" className="btn btn-secondary text-white">
-                Previous
-              </button>
-            </div>
-            <div
-              className="btn-group me-2"
-              role="group"
-              aria-label="Second group"
-            >
-              <button type="button" className="btn btn-light">
-                1
-              </button>
-            </div>
-            <div
-              className="btn-group me-2"
-              role="group"
-              aria-label="Second group"
-            >
-              <button type="button" className="btn btn-secondary text-white">
-                2
-              </button>
-            </div>
-            <div className="btn-group" role="group" aria-label="Third group">
-              <button type="button" className="btn btn-secondary text-white">
-                Next
-              </button>
-            </div>
           </div>
         </div>
       </section>

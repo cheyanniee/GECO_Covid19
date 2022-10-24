@@ -19,6 +19,9 @@ const DoctorTest = () => {
   const [clinic, setClinic] = useState(0);
   const [testDate, setTestDate] = useState();
   const [testResult, setTestResult] = useState();
+  const [message, setMessage] = useState();
+  const [errMsg, setErrMsg] = useState();
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -86,8 +89,10 @@ const DoctorTest = () => {
         config({ token: auth?.token })
       );
       console.log(response.data.message);
+      setMessage("Update Success!");
     } catch (error) {
       console.log(error);
+      setErrMsg(error?.data);
     }
   };
 
@@ -103,7 +108,7 @@ const DoctorTest = () => {
           </div>
         </div>
         <div className="row mb-4">
-          <div className="worksingle-content col-lg-10 m-auto text-left justify-content-center">
+          <div className="col-lg-10 m-auto text-left justify-content-center">
             <div className="col-lg-4">
               <div className="form-floating">
                 <input
@@ -115,6 +120,8 @@ const DoctorTest = () => {
                 <label htmlFor="officialId light-300">
                   Patient's NRIC/FIN/Passport
                 </label>
+                {message && <em className="text-success px-2">{message}</em>}
+                {errMsg && <em className="text-danger px-2">{errMsg}</em>}
               </div>
             </div>
           </div>
