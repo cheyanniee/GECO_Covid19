@@ -18,3 +18,29 @@
 button:disabled {
   opacity: 0.35;
 }
+
+.map-container {
+    width: 100%;
+    height: 500px;
+    padding: 0.5rem;
+}
+
+.table-container {
+    height: 100%;
+    padding: 0 10px 10px 10px;
+    overflow: scroll;
+}
+
+.table-affected thead {
+    margin: 0 10px 10px 10px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
+}
+
+.table-affected tbody tr td {
+    margin: 0 10px 10px 10px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
+}
