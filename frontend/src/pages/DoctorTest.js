@@ -21,6 +21,7 @@ const DoctorTest = () => {
   const [testResult, setTestResult] = useState();
   const [message, setMessage] = useState();
   const [errMsg, setErrMsg] = useState();
+  
 
   useEffect(() => {
     const fetchData = async () => {
