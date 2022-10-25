@@ -9,59 +9,12 @@ const Footer = () => {
           <div className="col-lg-3 col-12 align-left">
             <Link className="navbar-brand" to="index.html">
               <i className="bx bx-buildings bx-sm text-light" />
-              <span className="text-light h5">Covid</span>{" "}
-              <span className="text-light h5 semi-bold-600">Safe</span>
+              <span className="text-light h5">GECO</span>{" "}
+              <span className="text-light h5 semi-bold-600">Buzz</span>
             </Link>
             <p className="text-light my-lg-4 my-2">
               Our company aims to help everyone stay as safe as possible through this tough pandemic.
             </p>
-            <ul className="list-inline footer-icons light-300">
-              <li className="list-inline-item m-0">
-                <Link
-                  className="text-light"
-                  target="_blank"
-                  to="http://facebook.com/"
-                >
-                  <i className="bx bxl-facebook-square bx-md" />
-                </Link>
-              </li>
-              <li className="list-inline-item m-0">
-                <Link
-                  className="text-light"
-                  target="_blank"
-                  to="https://www.linkedin.com/"
-                >
-                  <i className="bx bxl-linkedin-square bx-md" />
-                </Link>
-              </li>
-              <li className="list-inline-item m-0">
-                <Link
-                  className="text-light"
-                  target="_blank"
-                  to="https://www.whatsapp.com/"
-                >
-                  <i className="bx bxl-whatsapp-square bx-md" />
-                </Link>
-              </li>
-              <li className="list-inline-item m-0">
-                <Link
-                  className="text-light"
-                  target="_blank"
-                  to="https://www.flickr.com/"
-                >
-                  <i className="bx bxl-flickr-square bx-md" />
-                </Link>
-              </li>
-              <li className="list-inline-item m-0">
-                <Link
-                  className="text-light"
-                  target="_blank"
-                  to="https://www.medium.com/"
-                >
-                  <i className="bx bxl-medium-square bx-md" />
-                </Link>
-              </li>
-            </ul>
           </div>
           <div className="col-lg-3 col-md-4 my-sm-0 mt-4">
               <h3 className="h4 pb-lg-3 text-light light-300">Our Company</h3>
@@ -137,7 +90,7 @@ const Footer = () => {
           <div className="row pt-2">
             <div className="col-lg-6 col-sm-12">
               <p className="text-lg-start text-center text-light light-300">
-                © Copyright 2022 Covid Safe Company. All Rights Reserved.
+                © Copyright 2022 GECO Buzz Company. All Rights Reserved.
               </p>
             </div>
             <div className="col-lg-6 col-sm-12">
