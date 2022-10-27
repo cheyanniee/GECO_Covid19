@@ -10,6 +10,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.ZoneId;
@@ -24,6 +25,7 @@ public class PeopleService {
 
     @Autowired
     Environment environment;
+
 
     public List<PeopleModel> listPeople() {
         return peopleRepo.findAll();
@@ -41,11 +43,12 @@ public class PeopleService {
             throw new Exception("Official ID already exists.");
         }
 
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         PeopleModel peopleNew = PeopleModel.builder()
                 .lastName(peopleRequest.getLastName())
                 .firstName(peopleRequest.getFirstName())
                 .email(peopleRequest.getEmail().toLowerCase())
-                .password(peopleRequest.getPassword())
+                .password(passwordEncoder.encode(peopleRequest.getPassword()))
                 .address(peopleRequest.getAddress())
                 .postcode(peopleRequest.getPostcode())
                 .phone(peopleRequest.getPhone())
@@ -82,9 +85,11 @@ public class PeopleService {
     }
 
     public PeopleModel loginValidate(String email, String password) throws Exception {
-        Optional<PeopleModel> peopleOpt = peopleRepo.getPeopleByEmailAndPassword(email.toLowerCase(), password);
-        if (peopleOpt.isPresent()) {
-            PeopleModel people = peopleOpt.get();
+//        Optional<PeopleModel> peopleOpt = peopleRepo.getPeopleByEmailAndPassword(email.toLowerCase(), password);
+        PeopleModel people = peopleRepo.getPeopleByEmail(email.toLowerCase()).orElseThrow(()->new Exception("Please provide correct Email and Password."));
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        if (passwordEncoder.matches(password,people.getPassword())) {
+//            PeopleModel people = peopleOpt.get();
 //            String token = genTokenForEmail(email);
             String token = genJWT(people, 1, 0);
             updateTokenById(token, people.getId());
